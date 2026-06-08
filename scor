@@ -1,897 +1,286 @@
-bordereaux_transactions = StructType([
-        StructField(
-            "policyTransactions",
-            ArrayType(
-                StructType(
-                    [
-                        StructField(
-                            "bordereauxTransactions",
-                            ArrayType(MapType(StringType(), StringType(), True), True),
-                            True,
-                        ),
-                        StructField(
-                            "details",
-                            StructType(
-                                [
-                        StructField("commissionPercentage", StringType(), True),
-                        StructField("policyNumber", StringType(), True),
-                        StructField("insuredState", StringType(), True),
-                        StructField("policyTIV", StringType(), True),
-                        StructField("producerLicenseState", StringType(), True),
-                        StructField("sicCode2", StringType(), True),
-                        StructField("lob", StringType(), True),
-                        StructField("facultativeReinsuranceIndicator", StringType(), True),
-                        StructField("coverageCode", StringType(), True),
-                        StructField("transactionExpDate", StringType(), True),
-                        StructField("insuredAddress2", StringType(), True),
-                        StructField("terrorismPremiumCertified", StringType(), True),
-                        StructField("producertype", StringType(), True),
-                        StructField("producerLicenceNo", StringType(), True),
-                        StructField("producerAddress", StringType(), True),
-                        StructField("producerState", StringType(), True),
-                        StructField("producerCity", StringType(), True),
-                        StructField("producerPostCode", StringType(), True),
-                        StructField("terrorismIncludedFlag", StringType(), True),
-                        StructField("policyType", StringType(), True),
-                        StructField("producerAddress2", StringType(), True),
-                        StructField("producerFEIN", StringType(), True),
-                        StructField("rowID", StringType(), True),
-                        StructField("ID", StringType(), True),
-                        StructField("directAssume", StringType(), True),
-                        StructField("policyTrigger", StringType(), True),
-                        StructField("riskCountry", StringType(), True),
-                        StructField("program", StringType(), True),
-                        StructField("scorLimit", StringType(), True),
-                        StructField("100%", StructType([
-                            StructField("grossPremium", StringType(), True),
-                            StructField("commissionAmount", StringType(), True),
-                            StructField("exposureAmount", StringType(), True),
-                            StructField("netPremium", StringType(), True),
-                            StructField("paidPremium", StringType(), True),
-                            StructField("boundPremiumonPolicy", StringType(), True),
-                            StructField("deductible", StringType(), True),
-                            StructField("scorLimit", StringType(), True),
-                            StructField("brokerCommission", StringType(), True),
-                            StructField("taxAmount", StringType(), True),
-                            StructField("sumInsured", StringType(), True),
-                            StructField("buyBackPremium", StringType(), True),
-                            StructField("premiumNominativeCertificate", StringType(), True),
-                            StructField("declaredTurnover", StringType(), True),
-                            StructField("grossPREMIUMRCD100OCY", StringType(), True),
-                            StructField("grossPREMIUMGL100OCY", StringType(), True),
-                            StructField("primeNetteDsc", StringType(), True),
-                            StructField("dueAmount", StringType(), True),
-                        ]), True),
-                        StructField("grossPremium", StringType(), True),
-                        StructField("deductible", StringType(), True),
-                        StructField("taxAmount", StringType(), True),
-                        StructField("exposureAmount", StringType(), True),
-                        StructField("commissionAmount", StringType(), True),
-                        StructField("netPremium", StringType(), True),
-                        StructField("sumInsured", StringType(), True),
-                        StructField("dueAmount", StringType(), True),
-                        StructField("paidPremium", StringType(), True),
-                        StructField("buyBackPremium", StringType(), True),
-                        StructField("premiumNominativeCertificate", StringType(), True),
-                        StructField("tsp_uwy", StringType(), True),
-                        StructField("stateOfFiling", StringType(), True),
-                        StructField("surplusLicenseNo", StringType(), True),
-                        StructField("surplusName", StringType(), True),
-                        StructField("surplusLicenceNo", StringType(), True),
-                        StructField("treaty_inception_date", StringType(), True),
-                        StructField("limitBasis", StringType(), True),
-                        StructField("monthlyBookedPremium", StringType(), True),
-                        StructField("paidCommissionAmount", StringType(), True),
-                        StructField("paidCommissionRate", StringType(), True),
-                        StructField("paidGrossPremium", StringType(), True),
-                        StructField("paidNetAmount", StringType(), True),
-                        StructField("treaty_end_date", StringType(), True),
-                        StructField("TREATY_NUMBER", StringType(), True),
-                        StructField("grossPREMIUMRCD100OCY", StringType(), True),
-                        StructField("grossPREMIUMGL100OCY", StringType(), True),
-                        StructField("claimProbability", StringType(), True),
-                        StructField("finalnetpremiumSET", StringType(), True),
-                        StructField("lossPayeeAddress", StringType(), True),
-                        StructField("lossPayeeEntity", StringType(), True),
-                        StructField("offtakerAddress", StringType(), True),
-                        StructField("offtakerBillingDetails", StringType(), True),
-                        StructField("offtakerCity", StringType(), True),
-                        StructField("offtakerCountry", StringType(), True),
-                        StructField("offtakerCreditScore", StringType(), True),
-                        StructField("offtakerEntity", StringType(), True),
-                        StructField("offtakerNAIC", StringType(), True),
-                        StructField("offtakerNoofEmployees", StringType(), True),
-                        StructField("offtakerRevenue", StringType(), True),
-                        StructField("offtakerState", StringType(), True),
-                        StructField("offtakerUWScore", StringType(), True),
-                        StructField("offtakerZIP", StringType(), True),
-                        StructField("primaryRiskIdentifier", StringType(), True),
-                        StructField("producingBroker", StringType(), True),
-                        StructField("projectAddress", StringType(), True),
-                        StructField("projectCity", StringType(), True),
-                        StructField("projectCountry", StringType(), True),
-                        StructField("projectName", StringType(), True),
-                        StructField("projectState", StringType(), True),
-                        StructField("projectZIP", StringType(), True),
-                        StructField("settlementCurrency", StringType(), True),
-                        StructField("primaryExcess", StringType(), True),
-                        StructField("boundPremiumonPolicy", StringType(), True),
-                        StructField("limitsCurrency", StringType(), True),
-                        StructField("deductiblePercentage", StringType(), True),
-                        StructField("policyAggregateLimit", StringType(), True),
-                        StructField("productDescription", StringType(), True),
-                        StructField("policyclassficationCode", StringType(), True),
-                        StructField("waitingPeriod", StringType(), True),
-                        StructField("umr", StringType(), True),
-                        StructField("causeOfCancellation", StringType(), True),
-                        StructField("offtakerMultiTenant", StringType(), True),
-                        StructField("proRata", StringType(), True),
-                        StructField("currentLimit100", StringType(), True),
-                        StructField("issuanceDate", StringType(), True),
-                        StructField("limitRetention", StringType(), True),
-                        StructField("paCommission", StringType(), True),
-                        StructField("totalCommissions", StringType(), True),
-                        StructField("yoaYear", StringType(), True),
-                        StructField("mGAUWComments", StringType(), True),
-                        StructField("riskInsuredCounty", StringType(), True),
-                        StructField("commodityDescription1", StringType(), True),
-                        StructField("commodityDescription2", StringType(), True),
-                        StructField("commodityDescription3", StringType(), True),
-                        StructField("commodityDescription4", StringType(), True),
-                        StructField("deductibleFactor", StringType(), True),
-                        StructField("driverAgeFactor", StringType(), True),
-                        StructField("driverCDLExperienceFactor", StringType(), True),
-                        StructField("driverViolationsFMCSAFactor", StringType(), True),
-                        StructField("expiringPremium", StringType(), True),
-                        StructField("expiringRate", StringType(), True),
-                        StructField("expiringTIV", StringType(), True),
-                        StructField("fmcsaAccidenttoPowerUnitRatio", StringType(), True),
-                        StructField("fmcsaSevereViolationsFactor", StringType(), True),
-                        StructField("individualRiskPremiumModification", StringType(), True),
-                        StructField("lossHistoryRatingFactor", StringType(), True),
-                        StructField("model", StringType(), True),
-                        StructField("percentofHaulsforAllOtherCommodity", StringType(), True),
-                        StructField("percentofHaulsforCommodity1", StringType(), True),
-                        StructField("percentofHaulsforCommodity2", StringType(), True),
-                        StructField("percentofHaulsforCommodity3", StringType(), True),
-                        StructField("percentofHaulsforCommodity4", StringType(), True),
-                        StructField("policyLimit", StringType(), True),
-                        StructField("powerUnitValuationFactor", StringType(), True),
-                        StructField("primaryDescriptionOrPurposeofUse", StringType(), True),
-                        StructField("radiusFactor", StringType(), True),
-                        StructField("radiusofOperationsPercent0100", StringType(), True),
-                        StructField("radiusofOperationsPercent101200", StringType(), True),
-                        StructField("radiusofOperationsPercent201500", StringType(), True),
-                        StructField("radiusofOperationsPercent500", StringType(), True),
-                        StructField("riskFlag", StringType(), True),
-                        StructField("technicalBaseRateFactor", StringType(), True),
-                        StructField("technologyProgramsFactor", StringType(), True),
-                        StructField("transactionSequenceNumber", StringType(), True),
-                        StructField("unitType", StringType(), True),
-                        StructField("vehicleMakeModel", StringType(), True),
-                        StructField("vehicleRateFactor", StringType(), True),
-                        StructField("yearsinBusinessFactor", StringType(), True),
-                        StructField("previousPolicyNo", StringType(), True),
-                        StructField("classRatingType", StringType(), True),
-                        StructField("insuredName2", StringType(), True),
-                        StructField("previousPolicyNoInceptionDate", StringType(), True),
-                        StructField("vehicleYear", StringType(), True),
-                        StructField("riskAddressLine1", StringType(), True),
-                        StructField("riskAddressLine2", StringType(), True),
-                        StructField("riskCity", StringType(), True),
-                        StructField("riskPostCode", StringType(), True),
-                        StructField("formOfBusiness", StringType(), True),
-                        StructField("riskCounty", StringType(), True),
-                        StructField("originalCostOfNew", StringType(), True),
-                        StructField("outOfSequenceInd", StringType(), True),
-                        StructField("unitVehicleNo", StringType(), True),
-                        StructField("vehicleIdentificationNumber", StringType(), True),
-                        StructField("fleetvNonFleet", StringType(), True),
-                        StructField("mgaLimit", StringType(), True),
-                        StructField("brokerCommission", StringType(), True),
-                        StructField("deductibleCurrency", StringType(), True),
-                        StructField("extendCoverage", StringType(), True),
-                        StructField("mGAsUnderwriter", StringType(), True),
-                        StructField("settementCurrency", StringType(), True),
-                        StructField("mgaReferenceNumber", StringType(), True),
-                        StructField("dealDescription", StringType(), True),
-                        StructField("transactionValue", StringType(), True),
-                        StructField("targetCompanyCurrency", StringType(), True),
-                        StructField("targetCompanyName", StringType(), True),
-                        StructField("targetCompanyCountry", StringType(), True),
-                        StructField("industry", StringType(), True),
-                        StructField("buyerName", StringType(), True),
-                        StructField("buyerCountry", StringType(), True),
-                        StructField("sellerName", StringType(), True),
-                        StructField("sellerCountry", StringType(), True),
-                        StructField("policyPurchaser", StringType(), True),
-                        StructField("scheduleModifier", StringType(), True),
-                        StructField("coInsurance", StringType(), True),
-                        StructField("agreedValueIndicator", StringType(), True),
-                        StructField("cancelType", StringType(), True),
-                        StructField("contractorsCoverageIndicator", StringType(), True),
-                        StructField("ePLRetroDate", StringType(), True),
-                        StructField("gLPremisesOpsRate", StringType(), True),
-                        StructField("gLRate", StringType(), True),
-                        StructField("heatingImproveYear", StringType(), True),
-                        StructField("iSOClassCode", StringType(), True),
-                        StructField("leaseEquipmentIndicator", StringType(), True),
-                        StructField("percentOccuppied", StringType(), True),
-                        StructField("plumbingImproveYear", StringType(), True),
-                        StructField("policyCoinsurancePercent", StringType(), True),
-                        StructField("primaryOccupancy", StringType(), True),
-                        StructField("propertyRate", StringType(), True),
-                        StructField("ratingTerritory", StringType(), True),
-                        StructField("roofDescription", StringType(), True),
-                        StructField("roofingImproveYear", StringType(), True),
-                        StructField("valuationType", StringType(), True),
-                        StructField("valueBasis", StringType(), True),
-                        StructField("wiringImproveYear", StringType(), True),
-                        StructField("yearBuild", StringType(), True),
-                        StructField("adjustedCombinedRate", StringType(), True),
-                        StructField("buildingCladdingDescription", StringType(), True),
-                        StructField("constructionType", StringType(), True),
-                        StructField("distanceToWater", StringType(), True),
-                        StructField("finalRate", StringType(), True),
-                        StructField("locationDesc", StringType(), True),
-                        StructField("locationInCityLimitsIndicator", StringType(), True),
-                        StructField("locationNumber", StringType(), True),
-                        StructField("noOfStories", StringType(), True),
-                        StructField("numberBuildingOrHouse", StringType(), True),
-                        StructField("protectionClass", StringType(), True),
-                        StructField("sprinklers", StringType(), True),
-                        StructField("squareFootage", StringType(), True),
-                        StructField("fireAlamrmType", StringType(), True),
-                        StructField("creditDebit", StringType(), True),
-                        StructField("taxJurisdiction", StringType(), True),
-                        StructField("attachmentPoint", StringType(), True),
-                        StructField("limitValue", StringType(), True),
-                        StructField("attachPtValue", StringType(), True),
-                        StructField("sIRValue", StringType(), True),
-                        StructField("exposureBase", StringType(), True),
-                        StructField("subjectAudit", StringType(), True),
-                        StructField("eachEmployeeLimit", StringType(), True),
-                        StructField("clientClassification", StringType(), True),
-                        StructField("companyType", StringType(), True),
-                        StructField("companyinRunoff", StringType(), True),
-                        StructField("industryType", StringType(), True),
-                        StructField("insuredTotalNumberofEmployees", StringType(), True),
-                        StructField("limitType", StringType(), True),
-                        StructField("posi", StringType(), True),
-                        StructField("revenue", StringType(), True),
-                        StructField("scorSharePolicy", StringType(), True),
-                        StructField("scorShareProgram", StringType(), True),
-                        StructField("typeofBusinessNeworRenewal", StringType(), True),
-                        StructField("coverageDescription", StringType(), True),
-                        StructField("taxType", StringType(), True),
-                        StructField("dateOfCancellation", StringType(), True),
-                        StructField("riskCode", StringType(), True),
-                        StructField("gwp100OCY", StringType(), True),
-                        StructField("ourSHAREGROSSPREMIUMOCY", StringType(), True),
-                        StructField("ourSHARENETPREMIUMOCY", StringType(), True),
-                        StructField("taxAdminBy", StringType(), True),
-                        StructField("acctAOPAuditAllOther", StringType(), True),
-                        StructField("acctAOPAuditNotForProfit", StringType(), True),
-                        StructField("acctAOPAuditPubliclyTradedEntity", StringType(), True),
-                        StructField("acctAOPBookkeeping", StringType(), True),
-                        StructField("acctAOPBusinessValuation", StringType(), True),
-                        StructField("acctAOPCompilation", StringType(), True),
-                        StructField("acctAOPInformationTechnology", StringType(), True),
-                        StructField("acctAOPMAS", StringType(), True),
-                        StructField("acctAOPOtherServices", StringType(), True),
-                        StructField("acctAOPPersonalFinancialPlanning", StringType(), True),
-                        StructField("acctAOPReview", StringType(), True),
-                        StructField("acctAOPSECrelatedservices", StringType(), True),
-                        StructField("acctAOPTaxation", StringType(), True),
-                        StructField("acctAOPThirdPartyAdministration", StringType(), True),
-                        StructField("acctAOPTotalPracticeTime", StringType(), True),
-                        StructField("acctAOPTrusteeServices", StringType(), True),
-                        StructField("basePremiumFactor", StringType(), True),
-                        StructField("billingsFactorAdjustment", StringType(), True),
-                        StructField("defense", StringType(), True),
-                        StructField("firstDollarDefenseFlag", StringType(), True),
-                        StructField("longevityCreditFactor", StringType(), True),
-                        StructField("lossControlCreditFactor", StringType(), True),
-                        StructField("modifiedBasePremiumFactor", StringType(), True),
-                        StructField("nyftzClass", StringType(), True),
-                        StructField("practiceSpecialtyFactor", StringType(), True),
-                        StructField("sizeofFirmCreditFactor", StringType(), True),
-                        StructField("tailCoverageExpirationDate", StringType(), True),
-                        StructField("taxPreparersCreditFactor", StringType(), True),
-                        StructField("totalIndividualRiskModifier", StringType(), True),
-                        StructField("customerId", StringType(), True),
-                        StructField("rateMovement", StringType(), True),
-                        StructField("retroDate", StringType(), True),
-                        StructField("endorsementNumber", StringType(), True),
-                        StructField("aggregateDeductible", StringType(), True),
-                        StructField("advisersAOPAccountingServicesOtherThanTaxPrep", StringType(), True),
-                        StructField("advisersAOPAssetMonitoringNoLimitedPowerofAttorneytoDirectTrades", StringType(), True),
-                        StructField("advisersAOPCommissionedProducts", StringType(), True),
-                        StructField("advisersAOPCommodityFutures", StringType(), True),
-                        StructField("advisersAOPDerivativeInstruments", StringType(), True),
-                        StructField("advisersAOPDiscretionaryAssetsUnderManagement", StringType(), True),
-                        StructField("advisersAOPDivorceFinancialConsulting", StringType(), True),
-                        StructField("advisersAOPForeignSecuritiesExcludingADRs", StringType(), True),
-                        StructField("advisersAOPForeignSecuritiesexclADRS", StringType(), True),
-                        StructField("advisersAOPGeneralorLimitedPartnerships", StringType(), True),
-                        StructField("advisersAOPHedgeFundsorFundofHedgeFunds", StringType(), True),
-                        StructField("advisersAOPHourlyAdvice", StringType(), True),
-                        StructField("advisersAOPInvestmentGradeBonds", StringType(), True),
-                        StructField("advisersAOPInvestmentManagementConsultingNoLPOA", StringType(), True),
-                        StructField("advisersAOPInvestmentRelatedRealEstate", StringType(), True),
-                        StructField("advisersAOPJunkBonds", StringType(), True),
-                        StructField("advisersAOPListedStocks", StringType(), True),
-                        StructField("advisersAOPMutualFunds", StringType(), True),
-                        StructField("advisersAOPOptionsContracts", StringType(), True),
-                        StructField("advisersAOPOtherNatureofPractice", StringType(), True),
-                        StructField("advisersAOPOtherTypeofAlternativeInvestment", StringType(), True),
-                        StructField("advisersAOPPrivatePlacements", StringType(), True),
-                        StructField("advisersAOPProductSalesBasedOnFinancialPlan", StringType(), True),
-                        StructField("advisersAOPProductSalesNotBasedOnFinancialPlan", StringType(), True),
-                        StructField("advisersAOPPromissoryNotes", StringType(), True),
-                        StructField("advisersAOPREITSPrivatelyTraded", StringType(), True),
-                        StructField("advisersAOPREITSotherthanREITMutualFunds", StringType(), True),
-                        StructField("advisersAOPReferralToThirdPartyManagers", StringType(), True),
-                        StructField("advisersAOPSubprimeMortgagesorSubprimeCMOsofCDOs", StringType(), True),
-                        StructField("advisersAOPTaxPreparation", StringType(), True),
-                        StructField("advisersAOPThirdPartyPensionAdministrationnotclaims", StringType(), True),
-                        StructField("advisersAOPTimingServices", StringType(), True),
-                        StructField("advisersAOPTotalNatureofPractice", StringType(), True),
-                        StructField("advisersAOPTotalTypeofAlternativeInvestment", StringType(), True),
-                        StructField("advisersAOPTotalTypeofCommissionedProduct", StringType(), True),
-                        StructField("advisersAOPUnratedBonds", StringType(), True),
-                        StructField("advisersAOPUnregisteredSecurities", StringType(), True),
-                        StructField("advisersAOPVariableAnnuities", StringType(), True),
-                        StructField("advisersAOPWrapAccounts", StringType(), True),
-                        StructField("advisersAOPMortgagesmortgagepoolsmortgagebackedsecurities", StringType(), True),
-                        StructField("advisersAOPTangiblesgoldsilvercollectiblescoinsetc", StringType(), True),
-                        StructField("acctAOPERISAPensionPlans", StringType(), True),
-                        StructField("acctAllOtherEngagementLetterFlag", StringType(), True),
-                        StructField("acctAuditPubliclyTradedEntityEngagementLetterFlag", StringType(), True),
-                        StructField("acctNotforProfitEngagementLetterFlag", StringType(), True),
-                        StructField("acctReviewEngagementLetterFlag", StringType(), True),
-                        StructField("producingAgentorBroker", StringType(), True),
-                        StructField("creditOrDebitFactorApplied", StringType(), True),
-                        StructField("sicCode", StringType(), True),
-                        StructField("bcegClassCode", StringType(), True),
-                        StructField("bgiiConstructionCode", StringType(), True),
-                        StructField("classLimit", StringType(), True),
-                        StructField("formCode", StringType(), True),
-                        StructField("iSOCoverageCode", StringType(), True),
-                        StructField("iSOStateExceptionCode", StringType(), True),
-                        StructField("iSOSublineCode", StringType(), True),
-                        StructField("limitId", StringType(), True),
-                        StructField("lossCostEffectiveDate", StringType(), True),
-                        StructField("ordinanceLawId", StringType(), True),
-                        StructField("protectionCode", StringType(), True),
-                        StructField("rateGroup", StringType(), True),
-                        StructField("ratingIdCode", StringType(), True),
-                        StructField("renewalIndicator", StringType(), True),
-                        StructField("stmtLob", StringType(), True),
-                        StructField("subCode", StringType(), True),
-                        StructField("terrorismCoverageCode", StringType(), True),
-                        StructField("typeOfEquipmentCode", StringType(), True),
-                        StructField("typeOfPolicy", StringType(), True),
-                        StructField("scorParticipationLayer", StringType(), True),
-                        StructField("affinityDiscountFlag", StringType(), True),
-                        StructField("policyAdministrationFees", StringType(), True),
-                        StructField("rentersResidenceAddress", StringType(), True),
-                        StructField("vehicleRoadsideAssistanceCoverageFlag", StringType(), True),
-                        StructField("affinityDiscountAmount", StringType(), True),
-                        StructField("homeSharingFlag", StringType(), True),
-                        StructField("mineSubsidenceFlag", StringType(), True),
-                        StructField("mineSubsidencePremiumAmount", StringType(), True),
-                        StructField("noofPersonalWatercraft", StringType(), True),
-                        StructField("noofRVs", StringType(), True),
-                        StructField("noofRentalProperties", StringType(), True),
-                        StructField("numberofATVs", StringType(), True),
-                        StructField("numberofFamilyUnits", StringType(), True),
-                        StructField("numberofMortgagesonProperty", StringType(), True),
-                        StructField("numberofMotorcyclesorScooters", StringType(), True),
-                        StructField("numberofYouthfulOperators", StringType(), True),
-                        StructField("scheduledPersonalPropertyFlag", StringType(), True),
-                        StructField("umbrellaFlag", StringType(), True),
-                        StructField("umbrellaNo1RentalPropertyAddress", StringType(), True),
-                        StructField("umbrellaNo2RentalPropertyAddress", StringType(), True),
-                        StructField("umbrellaNo3RentalPropertyAddress", StringType(), True),
-                        StructField("umbrellaNo4RentalPropertyAddress", StringType(), True),
-                        StructField("publicProtectionCode", StringType(), True),
-                        StructField("roofAge", StringType(), True),
-                        StructField("estimatedPremium100OCY", StringType(), True),
-                        StructField("excessOCY", StringType(), True),
-                        StructField("expectedLR", StringType(), True),
-                        StructField("insurancePeriod", StringType(), True),
-                        StructField("insuredDiscretionaryLimit", StringType(), True),
-                        StructField("pc", StringType(), True),
-                        StructField("pcEstimate", StringType(), True),
-                        StructField("pcPaid", StringType(), True),
-                        StructField("endtReason", StringType(), True),
-                        StructField("instalmentsNumber", StringType(), True),
-                        StructField("layerID", StringType(), True),
-                        StructField("paidTaxAmount1", StringType(), True),
-                        StructField("buyerID", StringType(), True),
-                        StructField("buyerIndustry", StringType(), True),
-                        StructField("buyerRating", StringType(), True),
-                        StructField("buyerGroupName", StringType(), True),
-                        StructField("buyerGroupID", StringType(), True),
-                        StructField("buyerGroupIndustry", StringType(), True),
-                        StructField("buyerGroupCountry", StringType(), True),
-                        StructField("buyerGroupRating", StringType(), True),
-                        StructField("buyerCreditLimitCurrency", StringType(), True),
-                        StructField("buyerCreditLimitAmount", StringType(), True),
-                        StructField("buyerGroupLimitCurrency", StringType(), True),
-                        StructField("totalBuyerGroupLimitAmount", StringType(), True),
-                        StructField("typeOfDecision", StringType(), True),
-                        StructField("secondAmount", StringType(), True),
-                        StructField("secondAmountEndDate", StringType(), True),
-                        StructField("paymentTerms", StringType(), True),
-                        StructField("reasonCodes", StringType(), True),
-                        StructField("requestAmount", StringType(), True),
-                        StructField("insuredDBA", StringType(), True),
-                        StructField("complexityofRiskFactor", StringType(), True),
-                        StructField("primaryCoverageTermsFactor", StringType(), True),
-                        StructField("revenueSourceFactor", StringType(), True),
-                        StructField("pendingLitigationDate", StringType(), True),
-                        StructField("insurerName", StringType(), True),
-                        StructField("creditTermsDomestic", StringType(), True),
-                        StructField("creditTermsExport", StringType(), True),
-                        StructField("insuredApprovedLimit", StringType(), True),
-                        StructField("insuredCancellableLimit", StringType(), True),
-                        StructField("insuredPercentageDiscretionaryLimit", StringType(), True),
-                        StructField("brokerageProducerAmount", StringType(), True),
-                        StructField("producerRole", StringType(), True),
-                        StructField("classficationCode", StringType(), True),
-                        StructField("crimeIRPM", StringType(), True),
-                        StructField("dOIRPM", StringType(), True),
-                        StructField("eOIRPM", StringType(), True),
-                        StructField("employedLawyersIRPM", StringType(), True),
-                        StructField("eplIRPM", StringType(), True),
-                        StructField("fiduciaryIRPM", StringType(), True),
-                        StructField("italianTaxID", StringType(), True),
-                        StructField("spanishTaxID", StringType(), True),
-                        StructField("settlmeentAmount", StringType(), True),
-                        StructField("riskProvince", StringType(), True),
-                        StructField("inforceUnits", StringType(), True),
-                        StructField("insuredAddress3", StringType(), True),
-                        StructField("riskAddressLine3", StringType(), True),
-                        StructField("deductibleBasis", StringType(), True),
-                        StructField("fipeCODE", StringType(), True),
-                        StructField("countryRiskGradeFactor", StringType(), True),
-                        StructField("advisersAOPCMOsDerivatives", StringType(), True),
-                        StructField("advisersAOPDiscretionaryAssetManagementERISAPlansLPOA", StringType(), True),
-                        StructField("advisersAOPDiscretionaryAssetManagementIndividualsLPOA", StringType(), True),
-                        StructField("advisersAOPHedgeFundsFundofHedgeFunds", StringType(), True),
-                        StructField("advisersAOPLifeHealthDisabilityAccidentSalesLongTermCare", StringType(), True),
-                        StructField("advisersAOPModularComprehensiveFinancialPlanPreparationAdvice", StringType(), True),
-                        StructField("advisersAOPNonDiscretionaryAssetManagementLPOAwithPriorConsent", StringType(), True),
-                        StructField("advisersAOPNonDiscretionaryAssetsUnderManagement", StringType(), True),
-                        StructField("advisersAOPOptionsFuturesTangibles", StringType(), True),
-                        StructField("advisersAOPPromissoryNotesLeasesReceivables", StringType(), True),
-                        StructField("advisersAOPViaticalAgreementsSeniorSettlementsLifeSettlements", StringType(), True),
-                        StructField("bldgHeight", StringType(), True),
-                        StructField("companyNumber", StringType(), True),
-                        StructField("dluhcSection1CommAMT", StringType(), True),
-                        StructField("dluhcSection1GWP", StringType(), True),
-                        StructField("dluhcSection1IPT", StringType(), True),
-                        StructField("dluhcSection1NWPAlpha", StringType(), True),
-                        StructField("dluhcSection2CommAMT", StringType(), True),
-                        StructField("dluhcSection2GWP", StringType(), True),
-                        StructField("dluhcSection2IPT", StringType(), True),
-                        StructField("dluhcSection2NWPAlpha", StringType(), True),
-                        StructField("professionalBody", StringType(), True),
-                        StructField("uprn", StringType(), True),
-                        StructField("taxPercentage", StringType(), True),
-                        StructField("basement", StringType(), True),
-                        StructField("buildingsDeclaredvalue", StringType(), True),
-                        StructField("contents", StringType(), True),
-                        StructField("contentsCommunal", StringType(), True),
-                        StructField("dayOneuplift", StringType(), True),
-                        StructField("excessFlea", StringType(), True),
-                        StructField("excessFlood", StringType(), True),
-                        StructField("excessOther", StringType(), True),
-                        StructField("excessSubsidence", StringType(), True),
-                        StructField("excessescapeofwater", StringType(), True),
-                        StructField("excessincrease", StringType(), True),
-                        StructField("latlong", StringType(), True),
-                        StructField("premiumLiabilityMGAShare", StringType(), True),
-                        StructField("premiumPropertyMGAShare", StringType(), True),
-                        StructField("propertyType", StringType(), True),
-                        StructField("ratebi", StringType(), True),
-                        StructField("ratemd", StringType(), True),
-                        StructField("surveyrequested", StringType(), True),
-                        StructField("terrorZone", StringType(), True),
-                        StructField("constructionCode", StringType(), True),
-                        StructField("lastYearStructurallyUpdated", StringType(), True),
-                        StructField("occupancyDescriptionRisk", StringType(), True),
-                        StructField("lossofRentReceivable", StringType(), True),
-                        StructField("lossofServicecharge", StringType(), True),
-                        StructField("overrider", StringType(), True),
-                        StructField("policyLimitnetRate", StringType(), True),
-                        StructField("tsi100", StringType(), True),
-                        StructField("floorareaunitofmeasurement", StringType(), True),
-                        StructField("zoneRiskInfo", StringType(), True),
-                        StructField("policyWording", StringType(), True),
-                        StructField("recordCount", StringType(), True),
-                        StructField("recordCountProcessed", StringType(), True),
-                        StructField("terrorismDeclineDate", StringType(), True),
-                        StructField("naicLob", StringType(), True),
-                        StructField("paidROE", StringType(), True),
-                        StructField("usClassification", StringType(), True),
-                        StructField("surplusAddress", StringType(), True),
-                        StructField("surplusZipCode", StringType(), True),
-                        StructField("surplusCountry", StringType(), True),
-                        StructField("surplusNewJerseySLANo", StringType(), True),
-                        StructField("paidFinalNetPremiumOriginalCurrency", StringType(), True),
-                        StructField("paidFinalNetPremiumSettlementCurrency", StringType(), True),
-                        StructField("netCreditLimit", StringType(), True),
-                        StructField("taxableAmount", StringType(), True),
-                        StructField("wsBrokerage", StringType(), True),
-                        StructField("otherFees", StringType(), True),
-                        StructField("surplusState", StringType(), True),
-                        StructField("alarmIndicator", StringType(), True),
-                        StructField("hydrantIndicator", StringType(), True),
-                        StructField("noOfBuildings", StringType(), True),
-                        StructField("eqCumulativePremium", StringType(), True),
-                        StructField("fireAOPCumulativePremium", StringType(), True),
-                        StructField("floodCumulativePremium", StringType(), True),
-                        StructField("severeWSCumulativePremium", StringType(), True),
-                        StructField("windStormCumulativePremium", StringType(), True),
-                        StructField("perilCode", StringType(), True),
-                        StructField("surplusCity", StringType(), True),
-                        StructField("elLimit", StringType(), True),
-                        StructField("insuredPolicyholderType", StringType(), True),
-                        StructField("propertyOwnersLiability", StringType(), True),
-                        StructField("terrorismMDNetRate", StringType(), True),
-                        StructField("terrorismBINetRate", StringType(), True),
-                        StructField("surplusCompanyName", StringType(), True),
-                        StructField("sharedLimitFlag", StringType(), True),
-                        StructField("rateDepartureLcm", StringType(), True),
-                        StructField("experienceRating", StringType(), True),
-                        StructField("BuybackYearCount", StringType(), True),
-                        StructField("activity", StringType(), True),
-                        StructField("activityPercentage", StringType(), True),
-                        StructField("effectif", StringType(), True),
-                        StructField("fromBankruptCompany", StringType(), True),
-                        StructField("front", StringType(), True),
-                        StructField("limit100OCYGL", StringType(), True),
-                        StructField("limit100OCYRCD", StringType(), True),
-                        StructField("numberofrecoveredyears", StringType(), True),
-                        StructField("occurrenceLimitOCY", StringType(), True),
-                        StructField("premiumActivityOCY", StringType(), True),
-                        StructField("yearofIncorporation", StringType(), True),
-                        StructField("dedOrSIR", StringType(), True),
-                        StructField("intermediary2Commission", StringType(), True),
-                        StructField("mgaNetCommission", StringType(), True),
-                        StructField("secondaryRiskIdentifier", StringType(), True),
-                        StructField("animalBreed", StringType(), True),
-                        StructField("animalDob", StringType(), True),
-                        StructField("animalRegistry", StringType(), True),
-                        StructField("animalSex", StringType(), True),
-                        StructField("animalUse", StringType(), True),
-                        StructField("manualRate", StringType(), True),
-                        StructField("stableDiscount", StringType(), True),
-                        StructField("uwPercentInterest", StringType(), True),
-                        StructField("iaoClassCode", StringType(), True),
-                        StructField("animalName", StringType(), True),
-                        StructField("animalStatus", StringType(), True),
-                        StructField("highestSingleLimit", StringType(), True),
-                        StructField("londonBrokerage", StringType(), True),
-                        StructField("placingAddress", StringType(), True),
-                        StructField("placingCountry", StringType(), True),
-                        StructField("placingName", StringType(), True),
-                        StructField("placingState", StringType(), True),
-                        StructField("placingZipCode", StringType(), True),
-                        StructField("technicalLine", StringType(), True),
-                        StructField("paidTotalTaxesandLevies", StringType(), True),
-                        StructField("reportingEndDate", StringType(), True),
-                        StructField("nonInsurancePremium", StringType(), True),
-                        StructField("limit100", StructType([
-                            StructField("low", StringType(), True),
-                            StructField("high", StringType(), True),
-                            StructField("unsigned", StringType(), True),
-                        ]), True),
-                        StructField("aggregateLimit", StructType([
-                            StructField("low", StringType(), True),
-                            StructField("high", StringType(), True),
-                            StructField("unsigned", StringType(), True),
-                        ]), True),
-                        StructField("original", StructType([
-                            StructField("grossPremium", StringType(), True),
-                            StructField("exposureAmount", StringType(), True),
-                            StructField("commissionAmount", StringType(), True),
-                            StructField("netPremium", StringType(), True),
-                            StructField("paidPremium", StringType(), True),
-                            StructField("boundPremiumonPolicy", StringType(), True),
-                            StructField("deductible", StringType(), True),
-                            StructField("scorLimit", StringType(), True),
-                            StructField("brokerCommission", StringType(), True),
-                            StructField("taxAmount", StringType(), True),
-                            StructField("sumInsured", StringType(), True),
-                            StructField("dueAmount", StringType(), True),
-                            StructField("nonInsurancePremium", StringType(), True),
-                            StructField("limit100", StringType(), True),
-                            StructField("inforceUnits", StringType(), True),
-                            StructField("ourSHAREGROSSPREMIUMOCY", StringType(), True),
-                            StructField("gwp100OCY", StringType(), True),
-                            StructField("ourSHARENETPREMIUMOCY", StringType(), True),
-                            StructField("revenue", StringType(), True),
-                            StructField("buyBackPremium", StringType(), True),
-                            StructField("premiumNominativeCertificate", StringType(), True),
-                            StructField("declaredTurnover", StringType(), True),
-                            StructField("grossPREMIUMGL100OCY", StringType(), True),
-                            StructField("grossPREMIUMRCD100OCY", StringType(), True),
-                            StructField("limit100OCYGL", StringType(), True),
-                            StructField("limit100OCYRCD", StringType(), True),
-                            StructField("premiumActivityOCY", StringType(), True),
-                            StructField("originalGrossIDI", StringType(), True),
-                            StructField("policyIncDate", StringType(), True),
-                            StructField("primeNetteDsc", StringType(), True),
-                        ]), True),
-                        StructField("revisionStatus", StringType(), True),
-                        StructField("age", StringType(), True),
-                        StructField("grossPremiumHT", StringType(), True),
-                        StructField("vehicleType", StringType(), True),
-                        StructField("vehicleLicensePlateRegNumber", StringType(), True),
-                        StructField("numberofDrivers", StringType(), True),
-                        StructField("primaryDriverPostcode", StringType(), True),
-                        StructField("primaryDriverDOB", StringType(), True),
-                        StructField("primaryDriverDriverUse", StringType(), True),
-                        StructField("primaryDriverLicensePassDate", StringType(), True),
-                        StructField("primaryDriverLicenseType", StringType(), True),
-                        StructField("primaryDriverLicenceNumberVerified", StringType(), True),
-                        StructField("primaryDriverNumberofDisclosedConvictions", StringType(), True),
-                        StructField("occupation", StringType(), True),
-                        StructField("primaryDriverClaimFreeYears", StringType(), True),
-                        StructField("sourceofBusiness", StringType(), True),
-                        StructField("segment", StringType(), True),
-                        StructField("fraudFlagged", StringType(), True),
-                        StructField("creditScore", StringType(), True),
-                        StructField("noClaimsDiscountProtectionFlag", StringType(), True),
-                        StructField("driveOtherPeopleCarsFlag", StringType(), True),
-                        StructField("europeRoamingPassUpgradeFlag", StringType(), True),
-                        StructField("personalAccidentLimit", StringType(), True),
-                        StructField("endorsementDate", StringType(), True),
-                        StructField("endorsementType", StringType(), True),
-                        StructField("premiumPaymentFrequency", StringType(), True),
-                        StructField("numberofVehicles", StringType(), True),
-                        StructField("vehicleAnnualMileage", StringType(), True),
-                        StructField("cededPremium", StringType(), True),
-                        StructField("milesPolicy", StringType(), True),
-                        StructField("primaryDriverNumberofDiscoveredConvictions", StringType(), True),
-                        StructField("primaryDriverUKLicensePassDate", StringType(), True),
-                        StructField("paidTaxAmount2", StringType(), True),
-                        StructField("taxPayableBy", StringType(), True),
-                        StructField("originalReportingMonthPaid", StringType(), True),
-                        StructField("rateofExchange", StringType(), True),
-                        StructField("otherFeesorDeductionsDescription1", StringType(), True),
-                        StructField("otherFeesorDeductionsDescription2", StringType(), True),
-                        StructField("otherFeesorDeductionsDescription3", StringType(), True),
-                        StructField("otherFeesorDeductionsAmount2", StringType(), True),
-                        StructField("otherFeesorDeductionsAmount3", StringType(), True),
-                        StructField("otherFeesorDeductionsPayableBy1", StringType(), True),
-                        StructField("otherFeesorDeductionsPayableBy2", StringType(), True),
-                        StructField("otherFeesorDeductionsPayableBy3", StringType(), True),
-                        StructField("paidTaxAmount3", StringType(), True),
-                        StructField("taxFixedRate", StringType(), True),
-                        StructField("taxMultiplier", StringType(), True),
-                        StructField("percentageMga", StringType(), True),
-                        StructField("marineSingleShipmentFlag", StringType(), True),
-                        StructField("omegaTreatyNumber", StringType(), True),
-                        StructField("typeofContractQSXoLStopLoss", StringType(), True),
-                        StructField("typeofBusinessProportionalNonProportional", StringType(), True),
-                        StructField("susepCodeGroup", StringType(), True),
-                        StructField("estimatedPremium100", StringType(), True),
-                        StructField("premiumMonthlyDeclarationFrequency", StringType(), True),
-                        StructField("100PolicyLimit", StringType(), True),
-                        StructField("susepCodeGroupType", StringType(), True),
-                        StructField("endOfContractDate", StringType(), True),
-                        StructField("originalGrossIDI", StringType(), True),
-                        StructField("primeNetteDsc", StringType(), True),
-                        StructField("endOfContractReason", StringType(), True),
-                        StructField("experienceYearNumber", StringType(), True),
-                        StructField("PortfolioEvent", StringType(), True),
-                        StructField("expiryDsc", StringType(), True),
-                        StructField("inceptionDsc", StringType(), True),
-                        StructField("dscreference", StringType(), True),
-                        StructField("immatriculationDate", StringType(), True),
-                        StructField("typeOfAnimal", StringType(), True),
-                        StructField("typeOfCover", StringType(), True),
-                        StructField("purchasePrice", StringType(), True),
-                        StructField("neuteredStatus", StringType(), True),
-                        StructField("financeCost", StringType(), True),
-                        StructField("sourceAggregator", StringType(), True),
-                        StructField("createdDate", StringType(), True),
-                        StructField("policyVersion", StringType(), True),
-                        StructField("subPolicyNumber", StringType(), True),
-                        StructField("originalInceptionDate", StringType(), True),
-                        StructField("insuredDOB", StringType(), True),
-                        StructField("animalAge", StringType(), True),
-                        StructField("tplLimit", StringType(), True),
-                        StructField("financed", StringType(), True),
-                        StructField("mtaReason", StringType(), True),
-                        StructField("cancellationReason", StringType(), True),
-                        StructField("provider", StringType(), True),
-                        StructField("coverLevel", StringType(), True),
-                        StructField("fixedExcess", StringType(), True),
-                        StructField("excess", StringType(), True),
-                        StructField("occupancyType", StringType(), True),
-                        StructField("locationId", StringType(), True),
-                        StructField("podium", StringType(), True),
-                        StructField("parkingGarage", StringType(), True),
-                        StructField("firelineScoreWildfire", StringType(), True),
-                        StructField("vacantorOccupied", StringType(), True),
-                        StructField("roofMaterialCode", StringType(), True),
-                        StructField("crimeScore", StringType(), True),
-                        StructField("windHairExclusionYN", StringType(), True),
-                        StructField("windHailDeductiblePercentage", StringType(), True),
-                        StructField("basePropertyPremium", StringType(), True),
-                        StructField("otherPropertyPremium", StringType(), True),
-                        StructField("ordinanceorLawPremium", StringType(), True),
-                        StructField("ordinanceorLawLimit", StringType(), True),
-                        StructField("ordinanceorLawCommissionPercentage", StringType(), True),
-                        StructField("surplusLinesNJTRX", StringType(), True),
-                        StructField("surplusLinesNHEMP", StringType(), True),
-                        StructField("expandedEndtPremium", StringType(), True),
-                        StructField("contractSituation", StringType(), True),
-                        StructField("creationDateCT", StringType(), True),
-                        StructField("apeCode", StringType(), True),
-                        StructField("changeInSumInsuredLimitofLiability", StringType(), True),
-                        StructField("domainName", StringType(), True),
-                        StructField("timeElementDeductibleHour", StringType(), True),
-                        StructField("siretNumber", StringType(), True),
-                        StructField("deposit", StringType(), True),
-                        StructField("excessPerUnit", StringType(), True),
-                        StructField("excessforCommonProperty", StringType(), True),
-                        StructField("ingressofWater", StringType(), True),
-                        StructField("developer", StringType(), True),
-                        StructField("builder", StringType(), True),
-                        StructField("subrogationWaver", StringType(), True),
-                        StructField("technicalInspection", StringType(), True),
-                        StructField("structuralRating", StringType(), True),
-                        StructField("bop", StringType(), True),
-                        StructField("dateInstructiontoProceed", StringType(), True),
-                        StructField("anticipatedinception", StringType(), True),
-                        StructField("previouslyInsured", StringType(), True),
-                        StructField("workforceDate", StringType(), True),
-                        StructField("lossHistory", StringType(), True),
-                        StructField("BuyBackFlagInsured", StringType(), True),
-                        StructField("buybackpremiuminceptiondate", StringType(), True),
-                        StructField("buybackpremiumexpirationdate", StringType(), True),
-                        StructField("takeOverDate", StringType(), True),
-                        StructField("paymentDate", StringType(), True),
-                        StructField("bidAcceptance", StringType(), True),
-                        StructField("referredtoEuclidFlag", StringType(), True),
-                        StructField("referredToAspenFlag", StringType(), True),
-                        StructField("frontingCompany", StringType(), True),
-                        StructField("frontingCompanyCountry", StringType(), True),
-                        StructField("frontingCompanyCommission", StringType(), True),
-                        StructField("escalatingDeductible", StringType(), True),
-                        StructField("policySicDescription", StringType(), True),
-                        StructField("excessStructural", StringType(), True),
-                        StructField("excessWaterIngress", StringType(), True),
-                        StructField("excessResidentialLoss", StringType(), True),
-                        StructField("limitDebris", StringType(), True),
-                        StructField("limitProfessionalFee", StringType(), True),
-                        StructField("limitRegChange", StringType(), True),
-                        StructField("limitTempRemoval", StringType(), True),
-                        StructField("limitExpeditingCost", StringType(), True),
-                        StructField("sumInsuredLossofRent", StringType(), True),
-                        StructField("ratingLossofRent", StringType(), True),
-                        StructField("residentialWarrantyCover", StringType(), True),
-                        StructField("waterIngressInceptionDate", StringType(), True),
-                        StructField("windHailIndicator", StringType(), True),
-                        StructField("floodIndicator", StringType(), True),
-                        StructField("eqIndicator", StringType(), True),
-                        StructField("extendedReportingPeriodNumYears", StringType(), True),
-                        StructField("individualExtendedReportingPeriodNumYears", StringType(), True),
-                        StructField("claimExpenseOutsideLimitFactor", StringType(), True),
-                        StructField("firstDollarDefenseEndorsementPremium", StringType(), True),
-                        StructField("titleInsuranceAgencyProfLiabEndorsementPremium", StringType(), True),
-                        StructField("topaOPCode", StringType(), True),
-                        StructField("topaOPDescrip", StringType(), True),
-                        StructField("topaOPFullTime", StringType(), True),
-                        StructField("topaOPPartTime", StringType(), True),
-                        StructField("topaOPPracTime", StringType(), True),
-                        StructField("areaOfPracticeFinalMod", StringType(), True),
-                        StructField("ePLFactor", StringType(), True),
-                        StructField("continuingLegalCreditRuleFactor", StringType(), True),
-                        StructField("disciplinaryActionSurchargeFactor", StringType(), True),
-                        StructField("firstDollarDefenseFactor", StringType(), True),
-                        StructField("titleInsuranceAgency", StringType(), True),
-                        StructField("claimExpenseOutsideLimitPremium", StringType(), True),
-                        StructField("ePLEndorsementPremium", StringType(), True),
-                        StructField("layerLead", StringType(), True),
-                        StructField("cedentName", StringType(), True),
-                        StructField("regionalOffice", StringType(), True),
-                        StructField("mgaShare", StringType(), True),
-                        StructField("originalSlipBrokerage", StringType(), True),
-                        StructField("priority100", StringType(), True),
-                        StructField("paCommissionAmount", StringType(), True),
-                        StructField("mibMotorInsurersBureauClassofBusiness", StringType(), True),
-                        StructField("mibLevy", StringType(), True),
-                        StructField("fscsLevy", StringType(), True),
-                        StructField("fosLevy", StringType(), True),
-                        StructField("overriderAmount", StringType(), True),
-                        StructField("insurancePremiumTaxIPT", StringType(), True),
-                        StructField("legalNameOfInsured", StringType(), True),
-                        StructField("tradingNameOfInsured", StringType(), True),
-                        StructField("incorporationCountryOfInsured", StringType(), True),
-                        StructField("corporateRegistrationNoOfInsured", StringType(), True),
-                        StructField("legalFormOfInsured", StringType(), True),
-                        StructField("lEINumber", StringType(), True),
-                        StructField("registredAddressOfInsured", StringType(), True),
-                        StructField("businessAddressOfInsured", StringType(), True),
-                        StructField("legalRepresentativeFirstName", StringType(), True),
-                        StructField("legalRepresentativeLastName", StringType(), True),
-                        StructField("legalRepresentativePob", StringType(), True),
-                        StructField("legalBasisOfAuthority", StringType(), True),
-                        StructField("insuredIsPubliclyListedCompanyYN", StringType(), True),
-                        StructField("stockExchange100", StringType(), True),
-                        StructField("insuredOwnedByPubliclyListedCompanyMoreThan75YN", StringType(), True),
-                        StructField("ultimateBeneficalOwnerFirstName", StringType(), True),
-                        StructField("ultimateBeneficalOwnerLastName", StringType(), True),
-                        StructField("ultimateBeneficalOwnerDob", StringType(), True),
-                        StructField("ultimateBeneficalOwnerPob", StringType(), True),
-                        StructField("insuredWithPoliticallyExposedPersonsYN", StringType(), True),
-                        StructField("politicallyExposedPersonFunctionatInsured", StringType(), True),
-                        StructField("politicallyExposedPersonPublicFunction", StringType(), True),
-                        StructField("insuredDomiciledInCountryWithStrategicDeficienciesYN", StringType(), True),
-                        StructField("shareholderName", StringType(), True),
-                        StructField("shareholderAddress", StringType(), True),
-                        StructField("shareCapital", StringType(), True),
-                        StructField("additionalInformation", StringType(), True),
-                        StructField("politicallyExposedPersonFirstName", StringType(), True),
-                        StructField("politicallyExposedPersonLastName", StringType(), True),
-                        StructField("legalRepresentativeDob", StringType(), True),
-                        StructField("shareholder2Name", StringType(), True),
-                        StructField("shareholder3Name", StringType(), True),
-                        StructField("shareholder2Address", StringType(), True),
-                        StructField("shareholder3Address", StringType(), True),
-                        StructField("share2Capital", StringType(), True),
-                        StructField("share3Capital", StringType(), True),
-                        StructField("politicallyExposedPerson2FirstName", StringType(), True),
-                        StructField("politicallyExposedPerson3FirstName", StringType(), True),
-                        StructField("politicallyExposedPerson2LastName", StringType(), True),
-                        StructField("politicallyExposedPerson3LastName", StringType(), True),
-                        StructField("politicallyExposedPerson2PublicFunction", StringType(), True),
-                        StructField("politicallyExposedPerson3PublicFunction", StringType(), True),
-                        StructField("politicallyExposedPerson2FunctionatInsured", StringType(), True),
-                        StructField("politicallyExposedPerson3FunctionatInsured", StringType(), True),
-                        StructField("ultimateBeneficialOwner2FirstName", StringType(), True),
-                        StructField("ultimateBeneficialOwner3FirstName", StringType(), True),
-                        StructField("ultimateBeneficialOwner2LastName", StringType(), True),
-                        StructField("ultimateBeneficialOwner3LastName", StringType(), True),
-                        StructField("ultimateBeneficialOwner2DOB", StringType(), True),
-                        StructField("ultimateBeneficialOwner3DOB", StringType(), True),
-                        StructField("ultimateBeneficialOwner2POB", StringType(), True),
-                        StructField("ultimateBeneficialOwner3POB", StringType(), True),
-                        StructField("paidInstalmentNumber", StringType(), True),
-                        StructField("petName", StringType(), True),
-                        StructField("petType", StringType(), True),
-                        StructField("petBreed", StringType(), True),
-                        StructField("petGender", StringType(), True),
-                        StructField("petID", StringType(), True),
-                        StructField("petPedigree", StringType(), True),
-                        StructField("copayAmount", StringType(), True),
-                        StructField("contractNumberofYears", StringType(), True),
-                        StructField("renewalsCount", StringType(), True),
-                        StructField("discountAmount", StringType(), True),
-                        StructField("capAmount", StringType(), True),
-                        StructField("travelCoverAddOn", StringType(), True),
-                        StructField("lossTheftCoverAddOn", StringType(), True),
-                        StructField("deathCoverAddOn", StringType(), True),
-                        StructField("moneybackCoverAddOn", StringType(), True),
-                        StructField("claimsExperienceScore", StringType(), True),
-                        StructField("policyAcquisitionChannel", StringType(), True),
-                        StructField("instalmentDate", StringType(), True),
-                        StructField("longitude", StringType(), True),
-                        StructField("latitude", StringType(), True)
-                    ]),
-                    True
-                )
-            ]
-        )
-    )
-)])
+%sql
+SELECT
+  SHA(CAST(STRUCT(ROW_ID, ID) AS STRING)) AS PKEY
+ ,STRUCT(ROW_ID, ID) AS CKEY
+ ,*
+FROM (
+SELECT
+   CAST(rowID AS STRING) AS ROW_ID
+  ,CAST(ID AS STRING) AS ID
+  ,CAST(policyNumber AS STRING) AS POLICY_NUMBER
+  ,CAST(transactionSequenceNumber AS STRING) AS TRANSACTION_SEQUENCE_NUMBER
+  ,CAST(subPolicyNumber AS STRING) AS SUB_POLICY_NUMBER
+  ,CAST(previousPolicyNo AS STRING) AS PREVIOUS_POLICY_NO
+  ,CAST(endorsementNumber AS STRING) AS ENDORSEMENT_NUMBER
+  ,CAST(customerId AS STRING) AS CUSTOMER_ID
+  ,CAST(locationId AS STRING) AS LOCATION_ID
+  ,CAST(layerID AS STRING) AS LAYER_ID
+  ,CAST(omegaTreatyNumber AS STRING) AS OMEGA_TREATY_NUMBER
+  ,CAST(TREATY_NUMBER AS STRING) AS TREATY_NUMBER
+  ,CAST(revisionStatus AS STRING) AS REVISION_STATUS
+  ,CAST(policyType AS STRING) AS POLICY_TYPE
+  ,CAST(typeOfPolicy AS STRING) AS TYPE_OF_POLICY
+  ,CAST(typeOfCover AS STRING) AS TYPE_OF_COVER
+  ,CAST(typeofContractQSXoLStopLoss AS STRING) AS TYPE_OF_CONTRACT_QS_XOL_STOP_LOSS
+  ,CAST(typeofBusinessProportionalNonProportional AS STRING) AS TYPE_OF_BUSINESS_PROPORTIONAL_NON_PROPORTIONAL
+  ,CAST(typeofBusinessNeworRenewal AS STRING) AS TYPE_OF_BUSINESS_NEW_OR_RENEWAL
+  ,CAST(program AS STRING) AS PROGRAM
+  ,CAST(lob AS STRING) AS LOB
+  ,CAST(naicLob AS STRING) AS NAIC_LOB
+  ,CAST(stmtLob AS STRING) AS STMT_LOB
+  ,CAST(coverageCode AS STRING) AS COVERAGE_CODE
+  ,CAST(coverageDescription AS STRING) AS COVERAGE_DESCRIPTION
+  ,CAST(iSOCoverageCode AS STRING) AS ISO_COVERAGE_CODE
+  ,CAST(iSOStateExceptionCode AS STRING) AS ISO_STATE_EXCEPTION_CODE
+  ,CAST(iSOSublineCode AS STRING) AS ISO_SUBLINE_CODE
+  ,CAST(formCode AS STRING) AS FORM_CODE
+  ,CAST(formOfBusiness AS STRING) AS FORM_OF_BUSINESS
+  ,CAST(policyTrigger AS STRING) AS POLICY_TRIGGER
+  ,CAST(policyWording AS STRING) AS POLICY_WORDING
+  ,CAST(policyAcquisitionChannel AS STRING) AS POLICY_ACQUISITION_CHANNEL
+  ,CAST(policyclassficationCode AS STRING) AS POLICY_CLASSIFICATION_CODE
+  ,CAST(classficationCode AS STRING) AS CLASSIFICATION_CODE
+  ,CAST(classRatingType AS STRING) AS CLASS_RATING_TYPE
+  ,CAST(classLimit AS STRING) AS CLASS_LIMIT
+  ,CAST(riskCode AS STRING) AS RISK_CODE
+  ,CAST(sicCode AS STRING) AS SIC_CODE
+  ,CAST(sicCode2 AS STRING) AS SIC_CODE_2
+  ,CAST(fipeCODE AS STRING) AS FIPE_CODE
+  ,CAST(apeCode AS STRING) AS APE_CODE
+  ,CAST(iaoClassCode AS STRING) AS IAO_CLASS_CODE
+  ,CAST(topaOPCode AS STRING) AS TOPA_OP_CODE
+  ,CAST(topaOPDescrip AS STRING) AS TOPA_OP_DESCRIP
+  ,CAST(technicalLine AS STRING) AS TECHNICAL_LINE
+  ,CAST(productDescription AS STRING) AS PRODUCT_DESCRIPTION
+  ,CAST(policySicDescription AS STRING) AS POLICY_SIC_DESCRIPTION
+  ,CAST(insuredName2 AS STRING) AS INSURED_NAME_2
+  ,CAST(legalNameOfInsured AS STRING) AS LEGAL_NAME_OF_INSURED
+  ,CAST(tradingNameOfInsured AS STRING) AS TRADING_NAME_OF_INSURED
+  ,CAST(policyPurchaser AS STRING) AS POLICY_PURCHASER
+  ,CAST(insuredDBA AS STRING) AS INSURED_DBA
+  ,CAST(insuredAddress2 AS STRING) AS INSURED_ADDRESS_2
+  ,CAST(insuredAddress3 AS STRING) AS INSURED_ADDRESS_3
+  ,CAST(insuredState AS STRING) AS INSURED_STATE
+  ,CAST(insuredDOB AS DATE) AS INSURED_DOB
+  ,CAST(insuredPolicyholderType AS STRING) AS INSURED_POLICYHOLDER_TYPE
+  ,CAST(insuredIsPubliclyListedCompanyYN AS STRING) AS INSURED_IS_PUBLICLY_LISTED_COMPANY_YN
+  ,CAST(insuredOwnedByPubliclyListedCompanyMoreThan75YN AS STRING) AS INSURED_OWNED_BY_PUBLICLY_LISTED_COMPANY_MORE_THAN_75_YN
+  ,CAST(insuredWithPoliticallyExposedPersonsYN AS STRING) AS INSURED_WITH_POLITICALLY_EXPOSED_PERSONS_YN
+  ,CAST(insuredDomiciledInCountryWithStrategicDeficienciesYN AS STRING) AS INSURED_DOMICILED_IN_COUNTRY_WITH_STRATEGIC_DEFICIENCIES_YN
+  ,CAST(producingBroker AS STRING) AS PRODUCING_BROKER
+  ,CAST(producingAgentorBroker AS STRING) AS PRODUCING_AGENT_OR_BROKER
+  ,CAST(producertype AS STRING) AS PRODUCER_TYPE
+  ,CAST(producerRole AS STRING) AS PRODUCER_ROLE
+  ,CAST(producerAddress AS STRING) AS PRODUCER_ADDRESS
+  ,CAST(producerAddress2 AS STRING) AS PRODUCER_ADDRESS_2
+  ,CAST(producerCity AS STRING) AS PRODUCER_CITY
+  ,CAST(producerState AS STRING) AS PRODUCER_STATE
+  ,CAST(producerPostCode AS STRING) AS PRODUCER_POST_CODE
+  ,CAST(producerLicenseState AS STRING) AS PRODUCER_LICENSE_STATE
+  ,CAST(producerLicenceNo AS STRING) AS PRODUCER_LICENCE_NO
+  ,CAST(producerFEIN AS STRING) AS PRODUCER_FEIN
+  ,CAST(surplusLicenseNo AS STRING) AS SURPLUS_LICENSE_NO
+  ,CAST(surplusLicenceNo AS STRING) AS SURPLUS_LICENCE_NO
+  ,CAST(surplusName AS STRING) AS SURPLUS_NAME
+  ,CAST(surplusCompanyName AS STRING) AS SURPLUS_COMPANY_NAME
+  ,CAST(surplusAddress AS STRING) AS SURPLUS_ADDRESS
+  ,CAST(surplusCity AS STRING) AS SURPLUS_CITY
+  ,CAST(surplusState AS STRING) AS SURPLUS_STATE
+  ,CAST(surplusZipCode AS STRING) AS SURPLUS_ZIP_CODE
+  ,CAST(surplusCountry AS STRING) AS SURPLUS_COUNTRY
+  ,CAST(surplusNewJerseySLANo AS STRING) AS SURPLUS_NEW_JERSEY_SLA_NO
+  ,CAST(settlementCurrency AS STRING) AS SETTLEMENT_CURRENCY
+  ,CAST(settementCurrency AS STRING) AS SETTEMENT_CURRENCY
+  ,CAST(limitsCurrency AS STRING) AS LIMITS_CURRENCY
+  ,CAST(deductibleCurrency AS STRING) AS DEDUCTIBLE_CURRENCY
+  ,CAST(targetCompanyCurrency AS STRING) AS TARGET_COMPANY_CURRENCY
+  ,CAST(buyerCreditLimitCurrency AS STRING) AS BUYER_CREDIT_LIMIT_CURRENCY
+  ,CAST(buyerGroupLimitCurrency AS STRING) AS BUYER_GROUP_LIMIT_CURRENCY
+  ,CAST(rateofExchange AS DOUBLE) AS RATE_OF_EXCHANGE
+  ,CAST(scorSharePolicy AS DOUBLE) AS SCOR_SHARE_POLICY
+  ,CAST(scorShareProgram AS DOUBLE) AS SCOR_SHARE_PROGRAM
+  ,CAST(scorParticipationLayer AS DOUBLE) AS SCOR_PARTICIPATION_LAYER
+  ,CAST(mgaShare AS DOUBLE) AS MGA_SHARE
+  ,CAST(percentageMga AS DOUBLE) AS PERCENTAGE_MGA
+  ,CAST(uwPercentInterest AS DOUBLE) AS UW_PERCENT_INTEREST
+  ,CAST(transactionExpDate AS DATE) AS TRANSACTION_EXP_DATE
+  ,CAST(previousPolicyNoInceptionDate AS DATE) AS PREVIOUS_POLICY_NO_INCEPTION_DATE
+  ,CAST(originalInceptionDate AS DATE) AS ORIGINAL_INCEPTION_DATE
+  ,CAST(issuanceDate AS DATE) AS ISSUANCE_DATE
+  ,CAST(reportingEndDate AS DATE) AS REPORTING_END_DATE
+  ,CAST(endorsementDate AS DATE) AS ENDORSEMENT_DATE
+  ,CAST(dateOfCancellation AS DATE) AS DATE_OF_CANCELLATION
+  ,CAST(treaty_inception_date AS DATE) AS TREATY_INCEPTION_DATE
+  ,CAST(treaty_end_date AS DATE) AS TREATY_END_DATE
+  ,CAST(tailCoverageExpirationDate AS DATE) AS TAIL_COVERAGE_EXPIRATION_DATE
+  ,CAST(retroDate AS DATE) AS RETRO_DATE
+  ,CAST(ePLRetroDate AS DATE) AS EPL_RETRO_DATE
+  ,CAST(lossCostEffectiveDate AS DATE) AS LOSS_COST_EFFECTIVE_DATE
+  ,CAST(pendingLitigationDate AS DATE) AS PENDING_LITIGATION_DATE
+  ,CAST(endOfContractDate AS DATE) AS END_OF_CONTRACT_DATE
+  ,CAST(instalmentDate AS DATE) AS INSTALMENT_DATE
+  ,CAST(createdDate AS DATE) AS CREATED_DATE
+  ,CAST(creationDateCT AS DATE) AS CREATION_DATE_CT
+  ,CAST(workforceDate AS DATE) AS WORKFORCE_DATE
+  ,CAST(buybackpremiuminceptiondate AS DATE) AS BUYBACK_PREMIUM_INCEPTION_DATE
+  ,CAST(buybackpremiumexpirationdate AS DATE) AS BUYBACK_PREMIUM_EXPIRATION_DATE
+  ,CAST(takeOverDate AS DATE) AS TAKE_OVER_DATE
+  ,CAST(paymentDate AS DATE) AS PAYMENT_DATE
+  ,CAST(dateInstructiontoProceed AS DATE) AS DATE_INSTRUCTION_TO_PROCEED
+  ,CAST(anticipatedinception AS DATE) AS ANTICIPATED_INCEPTION
+  ,CAST(waterIngressInceptionDate AS DATE) AS WATER_INGRESS_INCEPTION_DATE
+  ,CAST(terrorismDeclineDate AS DATE) AS TERRORISM_DECLINE_DATE
+  ,CAST(animalDob AS DATE) AS ANIMAL_DOB
+  ,CAST(primaryDriverDOB AS DATE) AS PRIMARY_DRIVER_DOB
+  ,CAST(primaryDriverLicensePassDate AS DATE) AS PRIMARY_DRIVER_LICENSE_PASS_DATE
+  ,CAST(primaryDriverUKLicensePassDate AS DATE) AS PRIMARY_DRIVER_UK_LICENSE_PASS_DATE
+  ,CAST(immatriculationDate AS DATE) AS IMMATRICULATION_DATE
+  ,CAST(instalmentsNumber AS INT) AS INSTALMENTS_NUMBER
+  ,CAST(paidInstalmentNumber AS INT) AS PAID_INSTALMENT_NUMBER
+  ,CAST(numberofDrivers AS INT) AS NUMBER_OF_DRIVERS
+  ,CAST(numberofVehicles AS INT) AS NUMBER_OF_VEHICLES
+  ,CAST(numberofFamilyUnits AS INT) AS NUMBER_OF_FAMILY_UNITS
+  ,CAST(numberofMortgagesonProperty AS INT) AS NUMBER_OF_MORTGAGES_ON_PROPERTY
+  ,CAST(numberofMotorcyclesorScooters AS INT) AS NUMBER_OF_MOTORCYCLES_OR_SCOOTERS
+  ,CAST(numberofYouthfulOperators AS INT) AS NUMBER_OF_YOUTHFUL_OPERATORS
+  ,CAST(noOfBuildings AS INT) AS NO_OF_BUILDINGS
+  ,CAST(renewalsCount AS INT) AS RENEWALS_COUNT
+  ,CAST(contractNumberofYears AS INT) AS CONTRACT_NUMBER_OF_YEARS
+  ,CAST(experienceYearNumber AS INT) AS EXPERIENCE_YEAR_NUMBER
+  ,CAST(age AS INT) AS AGE
+  ,CAST(animalAge AS INT) AS ANIMAL_AGE
 
+  ,CAST(commissionPercentage AS DOUBLE) AS COMMISSION_PERCENTAGE
+  ,CAST(policyTIV AS DOUBLE) AS POLICY_TIV
+  ,CAST(scorLimit AS DOUBLE) AS SCOR_LIMIT
+  ,CAST(grossPremium AS DOUBLE) AS GROSS_PREMIUM
+  ,CAST(deductible AS DOUBLE) AS DEDUCTIBLE
+  ,CAST(taxAmount AS DOUBLE) AS TAX_AMOUNT
+  ,CAST(exposureAmount AS DOUBLE) AS EXPOSURE_AMOUNT
+  ,CAST(commissionAmount AS DOUBLE) AS COMMISSION_AMOUNT
+  ,CAST(netPremium AS DOUBLE) AS NET_PREMIUM
+  ,CAST(sumInsured AS DOUBLE) AS SUM_INSURED
+  ,CAST(dueAmount AS DOUBLE) AS DUE_AMOUNT
+  ,CAST(paidPremium AS DOUBLE) AS PAID_PREMIUM
+  ,CAST(buyBackPremium AS DOUBLE) AS BUY_BACK_PREMIUM
+  ,CAST(premiumNominativeCertificate AS DOUBLE) AS PREMIUM_NOMINATIVE_CERTIFICATE
+  ,CAST(boundPremiumonPolicy AS DOUBLE) AS BOUND_PREMIUM_ON_POLICY
+  ,CAST(monthlyBookedPremium AS DOUBLE) AS MONTHLY_BOOKED_PREMIUM
+  ,CAST(paidCommissionAmount AS DOUBLE) AS PAID_COMMISSION_AMOUNT
+  ,CAST(paidCommissionRate AS DOUBLE) AS PAID_COMMISSION_RATE
+  ,CAST(paidGrossPremium AS DOUBLE) AS PAID_GROSS_PREMIUM
+  ,CAST(paidNetAmount AS DOUBLE) AS PAID_NET_AMOUNT
+  ,CAST(claimProbability AS DOUBLE) AS CLAIM_PROBABILITY
+  ,CAST(finalnetpremiumSET AS DOUBLE) AS FINAL_NET_PREMIUM_SET
+  ,CAST(deductiblePercentage AS DOUBLE) AS DEDUCTIBLE_PERCENTAGE
+  ,CAST(policyAggregateLimit AS DOUBLE) AS POLICY_AGGREGATE_LIMIT
+  ,CAST(currentLimit100 AS DOUBLE) AS CURRENT_LIMIT_100
+  ,CAST(limitRetention AS DOUBLE) AS LIMIT_RETENTION
+  ,CAST(paCommission AS DOUBLE) AS PA_COMMISSION
+  ,CAST(totalCommissions AS DOUBLE) AS TOTAL_COMMISSIONS
+  ,CAST(expiringPremium AS DOUBLE) AS EXPIRING_PREMIUM
+  ,CAST(expiringRate AS DOUBLE) AS EXPIRING_RATE
+  ,CAST(expiringTIV AS DOUBLE) AS EXPIRING_TIV
+  ,CAST(policyLimit AS DOUBLE) AS POLICY_LIMIT
+  ,CAST(originalCostOfNew AS DOUBLE) AS ORIGINAL_COST_OF_NEW
+  ,CAST(mgaLimit AS DOUBLE) AS MGA_LIMIT
+  ,CAST(brokerCommission AS DOUBLE) AS BROKER_COMMISSION
+  ,CAST(transactionValue AS DOUBLE) AS TRANSACTION_VALUE
+  ,CAST(purchasePrice AS DOUBLE) AS PURCHASE_PRICE
+  ,CAST(financeCost AS DOUBLE) AS FINANCE_COST
+  ,CAST(basePropertyPremium AS DOUBLE) AS BASE_PROPERTY_PREMIUM
+  ,CAST(otherPropertyPremium AS DOUBLE) AS OTHER_PROPERTY_PREMIUM
+  ,CAST(ordinanceorLawPremium AS DOUBLE) AS ORDINANCE_OR_LAW_PREMIUM
+  ,CAST(ordinanceorLawLimit AS DOUBLE) AS ORDINANCE_OR_LAW_LIMIT
+  ,CAST(ordinanceorLawCommissionPercentage AS DOUBLE) AS ORDINANCE_OR_LAW_COMMISSION_PERCENTAGE
+  ,CAST(expandedEndtPremium AS DOUBLE) AS EXPANDED_ENDT_PREMIUM
+  ,CAST(deposit AS DOUBLE) AS DEPOSIT
+  ,CAST(excessPerUnit AS DOUBLE) AS EXCESS_PER_UNIT
+  ,CAST(excessforCommonProperty AS DOUBLE) AS EXCESS_FOR_COMMON_PROPERTY
+  ,CAST(frontingCompanyCommission AS DOUBLE) AS FRONTING_COMPANY_COMMISSION
+  ,CAST(excessStructural AS DOUBLE) AS EXCESS_STRUCTURAL
+  ,CAST(excessWaterIngress AS DOUBLE) AS EXCESS_WATER_INGRESS
+  ,CAST(excessResidentialLoss AS DOUBLE) AS EXCESS_RESIDENTIAL_LOSS
+  ,CAST(limitDebris AS DOUBLE) AS LIMIT_DEBRIS
+  ,CAST(limitProfessionalFee AS DOUBLE) AS LIMIT_PROFESSIONAL_FEE
+  ,CAST(limitRegChange AS DOUBLE) AS LIMIT_REG_CHANGE
+  ,CAST(limitTempRemoval AS DOUBLE) AS LIMIT_TEMP_REMOVAL
+  ,CAST(limitExpeditingCost AS DOUBLE) AS LIMIT_EXPEDITING_COST
+  ,CAST(sumInsuredLossofRent AS DOUBLE) AS SUM_INSURED_LOSS_OF_RENT
+  ,CAST(ratingLossofRent AS DOUBLE) AS RATING_LOSS_OF_RENT
+  ,CAST(claimExpenseOutsideLimitFactor AS DOUBLE) AS CLAIM_EXPENSE_OUTSIDE_LIMIT_FACTOR
+  ,CAST(firstDollarDefenseEndorsementPremium AS DOUBLE) AS FIRST_DOLLAR_DEFENSE_ENDORSEMENT_PREMIUM
+  ,CAST(titleInsuranceAgencyProfLiabEndorsementPremium AS DOUBLE) AS TITLE_INSURANCE_AGENCY_PROF_LIAB_ENDORSEMENT_PREMIUM
+  ,CAST(ePLFactor AS DOUBLE) AS EPL_FACTOR
+  ,CAST(claimExpenseOutsideLimitPremium AS DOUBLE) AS CLAIM_EXPENSE_OUTSIDE_LIMIT_PREMIUM
+  ,CAST(ePLEndorsementPremium AS DOUBLE) AS EPL_ENDORSEMENT_PREMIUM
+  ,CAST(priority100 AS DOUBLE) AS PRIORITY_100
+  ,CAST(paCommissionAmount AS DOUBLE) AS PA_COMMISSION_AMOUNT
+  ,CAST(mibLevy AS DOUBLE) AS MIB_LEVY
+  ,CAST(fscsLevy AS DOUBLE) AS FSCS_LEVY
+  ,CAST(fosLevy AS DOUBLE) AS FOS_LEVY
+  ,CAST(overriderAmount AS DOUBLE) AS OVERRIDER_AMOUNT
+  ,CAST(insurancePremiumTaxIPT AS DOUBLE) AS INSURANCE_PREMIUM_TAX_IPT
+  ,CAST(copayAmount AS DOUBLE) AS COPAY_AMOUNT
+  ,CAST(discountAmount AS DOUBLE) AS DISCOUNT_AMOUNT
+  ,CAST(capAmount AS DOUBLE) AS CAP_AMOUNT
 
+  ,CAST(100_percentage:grossPremium AS DOUBLE) AS PCT100_GROSS_PREMIUM
+  ,CAST(100_percentage:commissionAmount AS DOUBLE) AS PCT100_COMMISSION_AMOUNT
+  ,CAST(100_percentage:exposureAmount AS DOUBLE) AS PCT100_EXPOSURE_AMOUNT
+  ,CAST(100_percentage:netPremium AS DOUBLE) AS PCT100_NET_PREMIUM
+  ,CAST(100_percentage:paidPremium AS DOUBLE) AS PCT100_PAID_PREMIUM
+  ,CAST(100_percentage:boundPremiumonPolicy AS DOUBLE) AS PCT100_BOUND_PREMIUM_ON_POLICY
+  ,CAST(100_percentage:deductible AS DOUBLE) AS PCT100_DEDUCTIBLE
+  ,CAST(100_percentage:scorLimit AS DOUBLE) AS PCT100_SCOR_LIMIT
+  ,CAST(100_percentage:brokerCommission AS DOUBLE) AS PCT100_BROKER_COMMISSION
+  ,CAST(100_percentage:taxAmount AS DOUBLE) AS PCT100_TAX_AMOUNT
+  ,CAST(100_percentage:sumInsured AS DOUBLE) AS PCT100_SUM_INSURED
+  ,CAST(100_percentage:buyBackPremium AS DOUBLE) AS PCT100_BUY_BACK_PREMIUM
+  ,CAST(100_percentage:premiumNominativeCertificate AS DOUBLE) AS PCT100_PREMIUM_NOMINATIVE_CERTIFICATE
+  ,CAST(100_percentage:declaredTurnover AS DOUBLE) AS PCT100_DECLARED_TURNOVER
+  ,CAST(100_percentage:grossPREMIUMRCD100OCY AS DOUBLE) AS PCT100_GROSS_PREMIUM_RCD_100_OCY
+  ,CAST(100_percentage:grossPREMIUMGL100OCY AS DOUBLE) AS PCT100_GROSS_PREMIUM_GL_100_OCY
+  ,CAST(100_percentage:primeNetteDsc AS DOUBLE) AS PCT100_PRIME_NETTE_DSC
+  ,CAST(100_percentage:dueAmount AS DOUBLE) AS PCT100_DUE_AMOUNT
+
+  ,CAST(original:grossPremium AS DOUBLE) AS ORIGINAL_GROSS_PREMIUM
+  ,CAST(original:exposureAmount AS DOUBLE) AS ORIGINAL_EXPOSURE_AMOUNT
+  ,CAST(original:commissionAmount AS DOUBLE) AS ORIGINAL_COMMISSION_AMOUNT
+  ,CAST(original:netPremium AS DOUBLE) AS ORIGINAL_NET_PREMIUM
+  ,CAST(original:paidPremium AS DOUBLE) AS ORIGINAL_PAID_PREMIUM
+  ,CAST(original:boundPremiumonPolicy AS DOUBLE) AS ORIGINAL_BOUND_PREMIUM_ON_POLICY
+  ,CAST(original:deductible AS DOUBLE) AS ORIGINAL_DEDUCTIBLE
+  ,CAST(original:scorLimit AS DOUBLE) AS ORIGINAL_SCOR_LIMIT
+  ,CAST(original:brokerCommission AS DOUBLE) AS ORIGINAL_BROKER_COMMISSION
+  ,CAST(original:taxAmount AS DOUBLE) AS ORIGINAL_TAX_AMOUNT
+  ,CAST(original:sumInsured AS DOUBLE) AS ORIGINAL_SUM_INSURED
+  ,CAST(original:dueAmount AS DOUBLE) AS ORIGINAL_DUE_AMOUNT
+  ,CAST(original:nonInsurancePremium AS DOUBLE) AS ORIGINAL_NON_INSURANCE_PREMIUM
+  ,CAST(original:limit100 AS DOUBLE) AS ORIGINAL_LIMIT_100
+  ,CAST(original:inforceUnits AS DOUBLE) AS ORIGINAL_INFORCE_UNITS
+  ,CAST(original:ourSHAREGROSSPREMIUMOCY AS DOUBLE) AS ORIGINAL_OUR_SHARE_GROSS_PREMIUM_OCY
+  ,CAST(original:gwp100OCY AS DOUBLE) AS ORIGINAL_GWP_100_OCY
+  ,CAST(original:ourSHARENETPREMIUMOCY AS DOUBLE) AS ORIGINAL_OUR_SHARE_NET_PREMIUM_OCY
+  ,CAST(original:revenue AS DOUBLE) AS ORIGINAL_REVENUE
+  ,CAST(original:buyBackPremium AS DOUBLE) AS ORIGINAL_BUY_BACK_PREMIUM
+  ,CAST(original:premiumNominativeCertificate AS DOUBLE) AS ORIGINAL_PREMIUM_NOMINATIVE_CERTIFICATE
+  ,CAST(original:declaredTurnover AS DOUBLE) AS ORIGINAL_DECLARED_TURNOVER
+  ,CAST(original:grossPREMIUMGL100OCY AS DOUBLE) AS ORIGINAL_GROSS_PREMIUM_GL_100_OCY
+  ,CAST(original:grossPREMIUMRCD100OCY AS DOUBLE) AS ORIGINAL_GROSS_PREMIUM_RCD_100_OCY
+  ,CAST(original:limit100OCYGL AS DOUBLE) AS ORIGINAL_LIMIT_100_OCY_GL
+  ,CAST(original:limit100OCYRCD AS DOUBLE) AS ORIGINAL_LIMIT_100_OCY_RCD
+  ,CAST(original:premiumActivityOCY AS DOUBLE) AS ORIGINAL_PREMIUM_ACTIVITY_OCY
+  ,CAST(original:originalGrossIDI AS DOUBLE) AS ORIGINAL_ORIGINAL_GROSS_IDI
+  ,CAST(original:policyIncDate AS DATE) AS ORIGINAL_POLICY_INC_DATE
+  ,CAST(original:primeNetteDsc AS DOUBLE) AS ORIGINAL_PRIME_NETTE_DSC
+
+  ,CAST(limit100:low AS BIGINT) AS LIMIT_100_LOW
+  ,CAST(limit100:high AS BIGINT) AS LIMIT_100_HIGH
+  ,CAST(limit100:unsigned AS STRING) AS LIMIT_100_UNSIGNED
+  ,CAST(aggregateLimit:low AS BIGINT) AS AGGREGATE_LIMIT_LOW
+  ,CAST(aggregateLimit:high AS BIGINT) AS AGGREGATE_LIMIT_HIGH
+  ,CAST(aggregateLimit:unsigned AS STRING) AS AGGREGATE_LIMIT_UNSIGNED
+
+FROM portfolio_risks_bronze.mongo_policy_bordereaux_transactions
+)
