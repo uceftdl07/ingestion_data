@@ -1,413 +1,407 @@
-bordereaux_transactions_schema = StructType([
-    StructField(
-        "claimTransactions",
-        ArrayType(
-            StructType([
-                StructField(
-                    "bordereauxTransactions",
-                    ArrayType(
-                        StructType([
-                            StructField("claimPolicyNumber", StringType(), True),
-                            StructField("claimReference", StringType(), True),
-                            StructField("lossCauseCode", StringType(), True),
-                            StructField("tpaLossCauseCode", StringType(), True),
-                            StructField("claimStatus", StringType(), True),
-                            StructField("expertFirmCompany", StringType(), True),
-                            StructField("claimNote", StringType(), True),
-                            StructField("paidDateAdjustersFees", StringType(), True),
-                            StructField("paidDateAttorneyCoverageFees", StringType(), True),
-                            StructField("paidDateFees", StringType(), True),
-                            StructField("activity", StringType(), True),
-                            StructField("claimsDate", StringType(), True),
-                            StructField("damages", StringType(), True),
-                            StructField("dateRegulatoryDeclarationSiteOpening", StringType(), True),
-                            StructField("garanties", StringType(), True),
-                            StructField("occurrenceDate", StringType(), True),
-                            StructField("thirdParty", StringType(), True),
-                            StructField("ROWID", StringType(), True),
-                            StructField("ID", StringType(), True),
-                            StructField("tpaName", StringType(), True),
-                            StructField("coverholderName", StringType(), True),
-                            StructField("binderContractInception", StringType(), True),
-                            StructField("lossCountry", StringType(), True),
-                            StructField("settlementCurrency", StringType(), True),
-                            StructField("originalCurrency", StringType(), True),
-                            StructField("lobDescription", StringType(), True),
-                            StructField("lossDateFrom", StringType(), True),
-                            StructField("index", StringType(), True),
-                            StructField("scorShare", StringType(), True),
-                            StructField("reportingMonth", StringType(), True),
-                            StructField("reportingYear", StringType(), True),
-                            StructField("username", StringType(), True),
-                            StructField("filename", StringType(), True),
-                            StructField("bdx_imp_id", StringType(), True),
-                            StructField("programId", StringType(), True),
-                            StructField("facilityId", StringType(), True),
-                            StructField("CM_ID", StringType(), True),
-                            StructField("CT_ID", StringType(), True),
-                            StructField("100%", StructType([
-                                StructField("paidMonthFees", StringType(), True),
-                                StructField("paidMonthAdjFee", StringType(), True),
-                                StructField("paidMonthAttyFee", StringType(), True),
-                                StructField("previousPaidFees", StringType(), True),
-                                StructField("previousPaidAdj", StringType(), True),
-                                StructField("previousPaidAtty", StringType(), True),
-                                StructField("reserveIndemnity", StringType(), True),
-                                StructField("reserveFees", StringType(), True),
-                                StructField("reserveAdjFee", StringType(), True),
-                                StructField("reserveAttyFee", StringType(), True),
-                                StructField("grossTotalncurred", StringType(), True),
-                                StructField("deductibleAmount", StringType(), True),
-                                StructField("subrogationSalvage", StringType(), True),
-                                StructField("incurredndemnity", StringType(), True),
-                                StructField("incurredxpenses", StringType(), True),
-                                StructField("paidMonthIndemnity", StringType(), True),
-                                StructField("previousPaidIndemnity", StringType(), True),
-                                StructField("buybackResale", StringType(), True),
-                                StructField("changeMonthIndemnity", StringType(), True),
-                                StructField("changeMonthFeesExpenses", StringType(), True),
-                                StructField("paidMonthDefenceFees", StringType(), True),
-                                StructField("paidMonthTpaFee", StringType(), True),
-                                StructField("previousPaidDefence", StringType(), True),
-                                StructField("previousPaidTpa", StringType(), True),
-                                StructField("reserveDefence", StringType(), True),
-                                StructField("reserveTpaFee", StringType(), True),
-                                StructField("sumInsured", StringType(), True),
-                                StructField("reserveLaeFee", StringType(), True),
-                                StructField("paidMonthLaeFees", StringType(), True),
-                                StructField("previousPaidLae", StringType(), True),
-                            ]), True),
-                            StructField("paidMonthIndemnity", StringType(), True),
-                            StructField("paidMonthFees", StringType(), True),
-                            StructField("paidMonthLaeFees", StringType(), True),
-                            StructField("paidMonthAdjFee", StringType(), True),
-                            StructField("paidMonthAttyFee", StringType(), True),
-                            StructField("paidMonthDefenceFees", StringType(), True),
-                            StructField("paidMonthTpaFee", StringType(), True),
-                            StructField("previousPaidIndemnity", StringType(), True),
-                            StructField("previousPaidFees", StringType(), True),
-                            StructField("previousPaidLae", StringType(), True),
-                            StructField("previousPaidAdj", StringType(), True),
-                            StructField("previousPaidAtty", StringType(), True),
-                            StructField("previousPaidDefence", StringType(), True),
-                            StructField("previousPaidTpa", StringType(), True),
-                            StructField("reserveIndemnity", StringType(), True),
-                            StructField("reserveFees", StringType(), True),
-                            StructField("reserveLaeFee", StringType(), True),
-                            StructField("reserveAdjFee", StringType(), True),
-                            StructField("reserveAttyFee", StringType(), True),
-                            StructField("reserveDefence", StringType(), True),
-                            StructField("reserveTpaFee", StringType(), True),
-                            StructField("grossTotalncurred", StringType(), True),
-                            StructField("sumInsured", StringType(), True),
-                            StructField("deductibleAmount", StringType(), True),
-                            StructField("subrogationSalvage", StringType(), True),
-                            StructField("recoveriesReserve", StringType(), True),
-                            StructField("buybackResale", StringType(), True),
-                            StructField("incurredndemnity", StringType(), True),
-                            StructField("incurredxpenses", StringType(), True),
-                            StructField("closedDate", StringType(), True),
-                            StructField("paidDateIndemnity", StringType(), True),
-                            StructField("claimlastmodificationdate", StringType(), True),
-                            StructField("claimLitigation", StringType(), True),
-                            StructField("reportingEndDate", StringType(), True),
-                            StructField("insuredFullNameOrCompanyName", StringType(), True),
-                            StructField("insuredCountry", StringType(), True),
-                            StructField("insuredPostcodeOrZipCodeOrsimilar", StringType(), True),
-                            StructField("insuredStateProvinceTerritoryCanton", StringType(), True),
-                            StructField("insuredAddress", StringType(), True),
-                            StructField("issuingCompany", StringType(), True),
-                            StructField("claimantName", StringType(), True),
-                            StructField("policyIncDate", StringType(), True),
-                            StructField("section", StringType(), True),
-                            StructField("tsp_uwy", StringType(), True),
-                            StructField("omegaTreatySectionNo", StringType(), True),
-                            StructField("rollbackFlag", StringType(), True),
-                            StructField("inError", StringType(), True),
-                            StructField("deductibleRecovery", StringType(), True),
-                            StructField("claimPolicyInceptionDate", StringType(), True),
-                            StructField("changeMonthIndemnity", StringType(), True),
-                            StructField("changeMonthFeesExpenses", StringType(), True),
-                            StructField("projectHandoverDate", StringType(), True),
-                            StructField("tpaCoverage", StringType(), True),
-                            StructField("coverage", StringType(), True),
-                            StructField("coverageType", StringType(), True),
-                            StructField("coverageStatus", StringType(), True),
-                            StructField("lossDescription", StringType(), True),
-                            StructField("firstAdvisedDate", StringType(), True),
-                            StructField("bodilyInjury", StringType(), True),
-                            StructField("totalRecoveries", StringType(), True),
-                            StructField("claimPolicyExpirationDate", StringType(), True),
-                            StructField("lossState", StringType(), True),
-                            StructField("claimDenial", StringType(), True),
-                            StructField("pcsCode", StringType(), True),
-                            StructField("catastropheName", StringType(), True),
-                            StructField("reopenedDate", StringType(), True),
-                            StructField("denialDate", StringType(), True),
-                            StructField("firstNotificationDate", StringType(), True),
-                            StructField("is_pcs_edited", StringType(), True),
-                            StructField("claimCoverageUS", StringType(), True),
-                            StructField("TREATY_NUMBER", StringType(), True),
-                            StructField("TREATY_NUMBER_y", StringType(), True),
-                            StructField("lossType", StringType(), True),
-                            StructField("potentialExposure", StringType(), True),
-                            StructField("rwiCategory", StringType(), True),
-                            StructField("scorQuotaShare", StringType(), True),
-                            StructField("widthdrawnDate", StringType(), True),
-                            StructField("retentionDropdownDate", StringType(), True),
-                            StructField("retentionDropdownAmount", StringType(), True),
-                            StructField("claimOriginalCurrency", StringType(), True),
-                            StructField("rateExchange", StringType(), True),
-                            StructField("original", StructType([
-                                StructField("paidMonthIndemnity", StringType(), True),
-                                StructField("paidMonthFees", StringType(), True),
-                                StructField("paidMonthAdjFee", StringType(), True),
-                                StructField("paidMonthTpaFee", StringType(), True),
-                                StructField("previousPaidIndemnity", StringType(), True),
-                                StructField("previousPaidFees", StringType(), True),
-                                StructField("previousPaidAdj", StringType(), True),
-                                StructField("previousPaidTpa", StringType(), True),
-                                StructField("reserveIndemnity", StringType(), True),
-                                StructField("reserveFees", StringType(), True),
-                                StructField("reserveAdjFee", StringType(), True),
-                                StructField("reserveTpaFee", StringType(), True),
-                                StructField("grossTotalncurred", StringType(), True),
-                                StructField("incurredndemnity", StringType(), True),
-                                StructField("incurredxpenses", StringType(), True),
-                                StructField("changeMonthIndemnity", StringType(), True),
-                                StructField("changeMonthFeesExpenses", StringType(), True),
-                                StructField("paidMonthLaeFees", StringType(), True),
-                                StructField("previousPaidLae", StringType(), True),
-                                StructField("reserveLaeFee", StringType(), True),
-                            ]), True),
-                            StructField("claimsOverride", StringType(), True),
-                            StructField("expertState", StringType(), True),
-                            StructField("agreementNo", StringType(), True),
-                            StructField("uniqueMarketReferenceOrPolicyNumber", StringType(), True),
-                            StructField("lloydRiskCode", StringType(), True),
-                            StructField("sectionNo", StringType(), True),
-                            StructField("locationRiskStateProvince", StringType(), True),
-                            StructField("locationRiskCountry", StringType(), True),
-                            StructField("periodCoverNarrative", StringType(), True),
-                            StructField("lossDateTo", StringType(), True),
-                            StructField("referralUw", StringType(), True),
-                            StructField("lossCounty", StringType(), True),
-                            StructField("stateFilling", StringType(), True),
-                            StructField("medicareUnitedStatesBodilyInjury", StringType(), True),
-                            StructField("medicareEligibilityPerformance", StringType(), True),
-                            StructField("medicareEligibilityOutcomeStatus", StringType(), True),
-                            StructField("medicareConditionalPayment", StringType(), True),
-                            StructField("medicareComplianceService", StringType(), True),
-                            StructField("coverholderPin", StringType(), True),
-                            StructField("reportingStartDate", StringType(), True),
-                            StructField("typeOfInsurance", StringType(), True),
-                            StructField("masterReference", StringType(), True),
-                            StructField("locationOfRiskLocationID", StringType(), True),
-                            StructField("locationoOfRiskAddress", StringType(), True),
-                            StructField("locationOfRiskPostcodeOrZipCodeOrSimilar", StringType(), True),
-                            StructField("deductibleBasis", StringType(), True),
-                            StructField("lossStreet", StringType(), True),
-                            StructField("lossZipCode", StringType(), True),
-                            StructField("lloydCatCode", StringType(), True),
-                            StructField("automobileSchedule", StringType(), True),
-                            StructField("cededPrecentage", StringType(), True),
-                            StructField("claimPlan", StringType(), True),
-                            StructField("patientName", StringType(), True),
-                            StructField("treatmentType", StringType(), True),
-                            StructField("treatmentCountry", StringType(), True),
-                            StructField("treatmentDate", StringType(), True),
-                            StructField("expertRole", StringType(), True),
-                            StructField("expoertReference", StringType(), True),
-                            StructField("expertAddress", StringType(), True),
-                            StructField("expertZipCode", StringType(), True),
-                            StructField("claimDateOpened", StringType(), True),
-                            StructField("coverageConfirmedDate", StringType(), True),
-                            StructField("claimAgreedDate", StringType(), True),
-                            StructField("claimPaidFinalDate", StringType(), True),
-                            StructField("feesPaidFinalDate", StringType(), True),
-                            StructField("subrogationDate", StringType(), True),
-                            StructField("denialReason", StringType(), True),
-                            StructField("amountClaimed", StringType(), True),
-                            StructField("exGratiaPayment", StringType(), True),
-                            StructField("claimNotPaidExcess", StringType(), True),
-                            StructField("structureAffected", StringType(), True),
-                            StructField("lossSeverity", StringType(), True),
-                            StructField("firstReserveEstablishedDate", StringType(), True),
-                            StructField("diaryDate", StringType(), True),
-                            StructField("peerReviewDate", StringType(), True),
-                            StructField("expertCountry", StringType(), True),
-                            StructField("vehicleIdentificationNumberVIN", StringType(), True),
-                            StructField("claimantAddress", StringType(), True),
-                            StructField("claimantCity", StringType(), True),
-                            StructField("claimantPostCode", StringType(), True),
-                            StructField("claimantState", StringType(), True),
-                            StructField("lossTypeCloseDate", StringType(), True),
-                            StructField("lossTypeCloseStatus", StringType(), True),
-                            StructField("makeofVehicle", StringType(), True),
-                            StructField("salvageMTD", StringType(), True),
-                            StructField("subroSalvageRecoveryToDate", StringType(), True),
-                            StructField("subrogationMTD", StringType(), True),
-                            StructField("totalPaid", StringType(), True),
-                            StructField("vehicleYear", StringType(), True),
-                            StructField("scorclaimrating", StringType(), True),
-                            StructField("lobCode", StringType(), True),
-                            StructField("salvageAll", StringType(), True),
-                            StructField("subrogationAll", StringType(), True),
-                            StructField("totalIncurredNetRecoveries", StringType(), True),
-                            StructField("coverageSuffix", StringType(), True),
-                            StructField("itdTotalRecoveries", StringType(), True),
-                            StructField("itdTotalRecoveriesPriorPeriod", StringType(), True),
-                            StructField("itdTotalRecoveriesThisMonth", StringType(), True),
-                            StructField("reinsuranceRecovery", StringType(), True),
-                            StructField("reservePartySuffix", StringType(), True),
-                            StructField("reserveReferenceNumber", StringType(), True),
-                            StructField("claimType", StringType(), True),
-                            StructField("deductiblePaid", StringType(), True),
-                            StructField("underwritingYOA", StringType(), True),
-                            StructField("deductibleBilled", StringType(), True),
-                            StructField("deductiblePaidThisMonth", StringType(), True),
-                            StructField("sirBilled", StringType(), True),
-                            StructField("sirPaidThisMonth", StringType(), True),
-                            StructField("sirPaidTotal", StringType(), True),
-                            StructField("claimantCountry", StringType(), True),
-                            StructField("maxPotentialLoss", StringType(), True),
-                            StructField("jurisdictionClaim", StringType(), True),
-                            StructField("litigationJurisdiction", StringType(), True),
-                            StructField("adjuster", StringType(), True),
-                            StructField("buyerCountry", StringType(), True),
-                            StructField("recoveryAgentRef", StringType(), True),
-                            StructField("lossCity", StringType(), True),
-                            StructField("underwriteDate", StringType(), True),
-                            StructField("recoveryAgent", StringType(), True),
-                            StructField("litigationAgainstCarrier", StringType(), True),
-                            StructField("paidDateDefenceFees", StringType(), True),
-                            StructField("paidDateTpaFees", StringType(), True),
-                            StructField("binderInception", StringType(), True),
-                            StructField("classofBusiness", StringType(), True),
-                            StructField("castelLine", StringType(), True),
-                            StructField("omegaTreaty", StringType(), True),
-                            StructField("riskExpiryDate", StringType(), True),
-                            StructField("riskInceptionDate", StringType(), True),
-                            StructField("uwy", StringType(), True),
-                            StructField("claimEvent", StringType(), True),
-                            StructField("activeCaseHandling", StringType(), True),
-                            StructField("lastResultDate", StringType(), True),
-                            StructField("takeOverDate", StringType(), True),
-                            StructField("uwReferredReason", StringType(), True),
-                            StructField("groupOfClaims", StringType(), True),
-                            StructField("premiumPaidDate", StringType(), True),
-                            StructField("propertyType", StringType(), True),
-                            StructField("buyer", StringType(), True),
-                            StructField("estimatedSettlementDate", StringType(), True),
-                            StructField("totalPreviouslyPaid", StringType(), True),
-                            StructField("totalReserve", StringType(), True),
-                            StructField("claimsHandlingExpensesIncurred", StringType(), True),
-                            StructField("claimsHandlingExpensesOutstanding", StringType(), True),
-                            StructField("claimsHandlingExpensesPaid", StringType(), True),
-                            StructField("claimsInvestigationExpenseIncurred", StringType(), True),
-                            StructField("claimsInvestigationExpenseOutstanding", StringType(), True),
-                            StructField("claimsInvestigationExpensePaid", StringType(), True),
-                            StructField("claimsManagementExpenseIncurred", StringType(), True),
-                            StructField("claimsManagementExpenseOutstanding", StringType(), True),
-                            StructField("claimsManagementExpensePaid", StringType(), True),
-                            StructField("fireIncurred", StringType(), True),
-                            StructField("fireOutstanding", StringType(), True),
-                            StructField("firePaid", StringType(), True),
-                            StructField("ownDamageIncurred", StringType(), True),
-                            StructField("ownDamageOutstanding", StringType(), True),
-                            StructField("ownDamagePaid", StringType(), True),
-                            StructField("storageIncurred", StringType(), True),
-                            StructField("storageOutstanding", StringType(), True),
-                            StructField("storagePaid", StringType(), True),
-                            StructField("theftIncurred", StringType(), True),
-                            StructField("theftOutstanding", StringType(), True),
-                            StructField("theftPaid", StringType(), True),
-                            StructField("thirdPartyBodilyInjuryIncurred", StringType(), True),
-                            StructField("thirdPartyBodilyInjuryOutstanding", StringType(), True),
-                            StructField("thirdPartyBodilyInjuryPaid", StringType(), True),
-                            StructField("thirdPartyPropertyDamageIncurred", StringType(), True),
-                            StructField("thirdPartyPropertyDamageOutstanding", StringType(), True),
-                            StructField("thirdPartyPropertyDamagePaid", StringType(), True),
-                            StructField("windscreenIncurred", StringType(), True),
-                            StructField("windscreenOutstanding", StringType(), True),
-                            StructField("windscreenPaid", StringType(), True),
-                            StructField("grossTotalIncurred", StringType(), True),
-                            StructField("incurredExpenses", StringType(), True),
-                            StructField("incurredIndemnity", StringType(), True),
-                            StructField("compulsoryExcessAmount", StringType(), True),
-                            StructField("daysbetweenInceptionandIncident", StringType(), True),
-                            StructField("daystoReport", StringType(), True),
-                            StructField("driverDOB", StringType(), True),
-                            StructField("driverDOBmatchNamedDriverDOB", StringType(), True),
-                            StructField("fraudFlag", StringType(), True),
-                            StructField("ncdAffected", StringType(), True),
-                            StructField("owner", StringType(), True),
-                            StructField("telematicsPolicy", StringType(), True),
-                            StructField("totalLoss", StringType(), True),
-                            StructField("totalPassengers", StringType(), True),
-                            StructField("vehicleType", StringType(), True),
-                            StructField("voluntaryExcessAmount", StringType(), True),
-                            StructField("anticipatedRecovery", StringType(), True),
-                            StructField("grossIncurred", StringType(), True),
-                            StructField("salvagePaid", StringType(), True),
-                            StructField("salvageReserves", StringType(), True),
-                            StructField("subrogationPaid", StringType(), True),
-                            StructField("subrogationReserves", StringType(), True),
-                            StructField("currentDateofTreatment", StringType(), True),
-                            StructField("haspetdied", StringType(), True),
-                            StructField("numberofTreatments", StringType(), True),
-                            StructField("petBreed", StringType(), True),
-                            StructField("petName", StringType(), True),
-                            StructField("petType", StringType(), True),
-                            StructField("schemeTPAName", StringType(), True),
-                            StructField("subStatus", StringType(), True),
-                            StructField("totalPaidthisMonth", StringType(), True),
-                            StructField("treatmentSource", StringType(), True),
-                            StructField("startDateofTreatment", StringType(), True),
-                            StructField("lossGeneralNature", StringType(), True),
-                            StructField("animalBreed", StringType(), True),
-                            StructField("armLimit", StringType(), True),
-                            StructField("ecseLimit", StringType(), True),
-                            StructField("horseAge", StringType(), True),
-                            StructField("horseName", StringType(), True),
-                            StructField("horseSex", StringType(), True),
-                            StructField("horseUse", StringType(), True),
-                            StructField("majorMedical", StringType(), True),
-                            StructField("mortalityLossYN", StringType(), True),
-                            StructField("tagNo", StringType(), True),
-                            StructField("areaofPracticeAOPCode", StringType(), True),
-                            StructField("causeofLossDescription", StringType(), True),
-                            StructField("businessInterruptionOutstanding", StringType(), True),
-                            StructField("businessInterruptionPaid", StringType(), True),
-                            StructField("businessInterruptionRecovered", StringType(), True),
-                            StructField("businessInterruptionReserve", StringType(), True),
-                            StructField("claimCause", StringType(), True),
-                            StructField("fatalities", StringType(), True),
-                            StructField("fault", StringType(), True),
-                            StructField("minorInvolved", StringType(), True),
-                            StructField("ownDamageRecovered", StringType(), True),
-                            StructField("ownDamageRecoveryReserve", StringType(), True),
-                            StructField("product", StringType(), True),
-                            StructField("thirdPartyPropertyDamageRecovered", StringType(), True),
-                            StructField("thirdPartyPropertyDamageReserve", StringType(), True),
-                            StructField("totalRecoveryReserve", StringType(), True),
-                            StructField("youngestMinorInvolved", StringType(), True),
-                            StructField("claimCoverageDescription", StringType(), True),
-                            StructField("closingReason", StringType(), True),
-                            StructField("continuationType", StringType(), True),
-                            StructField("copayPaidAmount", StringType(), True),
-                            StructField("copayReserveAmount", StringType(), True),
-                            StructField("overLimitDeduction", StringType(), True),
-                            StructField("petID", StringType(), True),
-                            StructField("uncoveredAmount", StringType(), True),
-                            StructField("vetID", StringType(), True),
-                            StructField("voluntaryPayment", StringType(), True)
-                        ])
-                    ),
-                    True,
-                )
-            ])
-        ),
-        True,
-    )
-])
+%sql
+CREATE OR REPLACE TABLE portfolio_risks_silver.mongo_claim_bordereaux_transactions
+AS
+SELECT
+  SHA(CAST(STRUCT(ROW_ID, ID) AS STRING)) AS PKEY
+ ,STRUCT(ROW_ID, ID)                      AS CKEY
+ ,*
+FROM (
+  SELECT
+  CAST(claimPolicyNumber AS STRING) AS CLAIM_POLICY_NUMBER
+  ,CAST(claimReference AS STRING) AS CLAIM_REFERENCE
+  ,CAST(lossCauseCode AS STRING) AS LOSS_CAUSE_CODE
+  ,CAST(tpaLossCauseCode AS STRING) AS TPA_LOSS_CAUSE_CODE
+  ,CAST(claimStatus AS STRING) AS CLAIM_STATUS
+  ,CAST(expertFirmCompany AS STRING) AS EXPERT_FIRM_COMPANY
+  ,CAST(claimNote AS STRING) AS CLAIM_NOTE
+  ,CAST(paidDateAdjustersFees AS DATE) AS PAID_DATE_ADJUSTERS_FEES
+  ,CAST(paidDateAttorneyCoverageFees AS DATE) AS PAID_DATE_ATTORNEY_COVERAGE_FEES
+  ,CAST(paidDateFees AS DATE) AS PAID_DATE_FEES
+  ,CAST(activity AS STRING) AS ACTIVITY
+  ,CAST(claimsDate AS DATE) AS CLAIMS_DATE
+  ,CAST(damages AS STRING) AS DAMAGES
+  ,CAST(dateRegulatoryDeclarationSiteOpening AS DATE) AS DATE_REGULATORY_DECLARATION_SITE_OPENING
+  ,CAST(garanties AS STRING) AS GARANTIES
+  ,CAST(occurrenceDate AS DATE) AS OCCURRENCE_DATE
+  ,CAST(thirdParty AS STRING) AS THIRD_PARTY
+  ,CAST(ROWID AS STRING) AS ROWID
+  ,CAST(ID AS STRING) AS ID
+  ,CAST(tpaName AS STRING) AS TPA_NAME
+  ,CAST(coverholderName AS STRING) AS COVERHOLDER_NAME
+  ,CAST(binderContractInception AS DATE) AS BINDER_CONTRACT_INCEPTION
+  ,CAST(lossCountry AS STRING) AS LOSS_COUNTRY
+  ,CAST(settlementCurrency AS STRING) AS SETTLEMENT_CURRENCY
+  ,CAST(originalCurrency AS STRING) AS ORIGINAL_CURRENCY
+  ,CAST(lobDescription AS STRING) AS LOB_DESCRIPTION
+  ,CAST(lossDateFrom AS DATE) AS LOSS_DATE_FROM
+  ,CAST(index AS STRING) AS INDEX
+  ,CAST(scorShare AS DOUBLE) AS SCOR_SHARE
+  ,CAST(reportingMonth AS INT) AS REPORTING_MONTH
+  ,CAST(reportingYear AS INT) AS REPORTING_YEAR
+  ,CAST(username AS STRING) AS USERNAME
+  ,CAST(filename AS STRING) AS FILENAME
+  ,CAST(bdx_imp_id AS STRING) AS BDX_IMP_ID
+  ,CAST(programId AS STRING) AS PROGRAM_ID
+  ,CAST(facilityId AS STRING) AS FACILITY_ID
+  ,CAST(CM_ID AS STRING) AS CM_ID
+  ,CAST(CT_ID AS STRING) AS CT_ID
+  ,CAST(paidMonthIndemnity AS DOUBLE) AS PAID_MONTH_INDEMNITY
+  ,CAST(paidMonthFees AS DOUBLE) AS PAID_MONTH_FEES
+  ,CAST(paidMonthLaeFees AS DOUBLE) AS PAID_MONTH_LAE_FEES
+  ,CAST(paidMonthAdjFee AS DOUBLE) AS PAID_MONTH_ADJ_FEE
+  ,CAST(paidMonthAttyFee AS DOUBLE) AS PAID_MONTH_ATTY_FEE
+  ,CAST(paidMonthDefenceFees AS DOUBLE) AS PAID_MONTH_DEFENCE_FEES
+  ,CAST(paidMonthTpaFee AS DOUBLE) AS PAID_MONTH_TPA_FEE
+  ,CAST(previousPaidIndemnity AS DOUBLE) AS PREVIOUS_PAID_INDEMNITY
+  ,CAST(previousPaidFees AS DOUBLE) AS PREVIOUS_PAID_FEES
+  ,CAST(previousPaidLae AS DOUBLE) AS PREVIOUS_PAID_LAE
+  ,CAST(previousPaidAdj AS DOUBLE) AS PREVIOUS_PAID_ADJ
+  ,CAST(previousPaidAtty AS DOUBLE) AS PREVIOUS_PAID_ATTY
+  ,CAST(previousPaidDefence AS DOUBLE) AS PREVIOUS_PAID_DEFENCE
+  ,CAST(previousPaidTpa AS DOUBLE) AS PREVIOUS_PAID_TPA
+  ,CAST(reserveIndemnity AS DOUBLE) AS RESERVE_INDEMNITY
+  ,CAST(reserveFees AS DOUBLE) AS RESERVE_FEES
+  ,CAST(reserveLaeFee AS DOUBLE) AS RESERVE_LAE_FEE
+  ,CAST(reserveAdjFee AS DOUBLE) AS RESERVE_ADJ_FEE
+  ,CAST(reserveAttyFee AS DOUBLE) AS RESERVE_ATTY_FEE
+  ,CAST(reserveDefence AS DOUBLE) AS RESERVE_DEFENCE
+  ,CAST(reserveTpaFee AS DOUBLE) AS RESERVE_TPA_FEE
+  ,CAST(grossTotalncurred AS DOUBLE) AS GROSS_TOTALNCURRED
+  ,CAST(sumInsured AS DOUBLE) AS SUM_INSURED
+  ,CAST(deductibleAmount AS DOUBLE) AS DEDUCTIBLE_AMOUNT
+  ,CAST(subrogationSalvage AS DOUBLE) AS SUBROGATION_SALVAGE
+  ,CAST(recoveriesReserve AS DOUBLE) AS RECOVERIES_RESERVE
+  ,CAST(buybackResale AS DOUBLE) AS BUYBACK_RESALE
+  ,CAST(incurredndemnity AS DOUBLE) AS INCURREDNDEMNITY
+  ,CAST(incurredxpenses AS DOUBLE) AS INCURREDXPENSES
+  ,CAST(closedDate AS DATE) AS CLOSED_DATE
+  ,CAST(paidDateIndemnity AS DATE) AS PAID_DATE_INDEMNITY
+  ,CAST(claimlastmodificationdate AS DATE) AS CLAIMLASTMODIFICATIONDATE
+  ,CAST(claimLitigation AS BOOLEAN) AS CLAIM_LITIGATION
+  ,CAST(reportingEndDate AS DATE) AS REPORTING_END_DATE
+  ,CAST(insuredFullNameOrCompanyName AS STRING) AS INSURED_FULL_NAME_OR_COMPANY_NAME
+  ,CAST(insuredCountry AS STRING) AS INSURED_COUNTRY
+  ,CAST(insuredPostcodeOrZipCodeOrsimilar AS STRING) AS INSURED_POSTCODE_OR_ZIP_CODE_ORSIMILAR
+  ,CAST(insuredStateProvinceTerritoryCanton AS STRING) AS INSURED_STATE_PROVINCE_TERRITORY_CANTON
+  ,CAST(insuredAddress AS STRING) AS INSURED_ADDRESS
+  ,CAST(issuingCompany AS STRING) AS ISSUING_COMPANY
+  ,CAST(claimantName AS STRING) AS CLAIMANT_NAME
+  ,CAST(policyIncDate AS DATE) AS POLICY_INC_DATE
+  ,CAST(section AS STRING) AS SECTION
+  ,CAST(tsp_uwy AS STRING) AS TSP_UWY
+  ,CAST(omegaTreatySectionNo AS STRING) AS OMEGA_TREATY_SECTION_NO
+  ,CAST(rollbackFlag AS BOOLEAN) AS ROLLBACK_FLAG
+  ,CAST(inError AS BOOLEAN) AS IN_ERROR
+  ,CAST(deductibleRecovery AS DOUBLE) AS DEDUCTIBLE_RECOVERY
+  ,CAST(claimPolicyInceptionDate AS DATE) AS CLAIM_POLICY_INCEPTION_DATE
+  ,CAST(changeMonthIndemnity AS DOUBLE) AS CHANGE_MONTH_INDEMNITY
+  ,CAST(changeMonthFeesExpenses AS DOUBLE) AS CHANGE_MONTH_FEES_EXPENSES
+  ,CAST(projectHandoverDate AS DATE) AS PROJECT_HANDOVER_DATE
+  ,CAST(tpaCoverage AS STRING) AS TPA_COVERAGE
+  ,CAST(coverage AS STRING) AS COVERAGE
+  ,CAST(coverageType AS STRING) AS COVERAGE_TYPE
+  ,CAST(coverageStatus AS STRING) AS COVERAGE_STATUS
+  ,CAST(lossDescription AS STRING) AS LOSS_DESCRIPTION
+  ,CAST(firstAdvisedDate AS DATE) AS FIRST_ADVISED_DATE
+  ,CAST(bodilyInjury AS BOOLEAN) AS BODILY_INJURY
+  ,CAST(totalRecoveries AS DOUBLE) AS TOTAL_RECOVERIES
+  ,CAST(claimPolicyExpirationDate AS DATE) AS CLAIM_POLICY_EXPIRATION_DATE
+  ,CAST(lossState AS STRING) AS LOSS_STATE
+  ,CAST(claimDenial AS BOOLEAN) AS CLAIM_DENIAL
+  ,CAST(pcsCode AS STRING) AS PCS_CODE
+  ,CAST(catastropheName AS STRING) AS CATASTROPHE_NAME
+  ,CAST(reopenedDate AS DATE) AS REOPENED_DATE
+  ,CAST(denialDate AS DATE) AS DENIAL_DATE
+  ,CAST(firstNotificationDate AS DATE) AS FIRST_NOTIFICATION_DATE
+  ,CAST(is_pcs_edited AS BOOLEAN) AS IS_PCS_EDITED
+  ,CAST(claimCoverageUS AS STRING) AS CLAIM_COVERAGE_US
+  ,CAST(TREATY_NUMBER AS STRING) AS TREATY_NUMBER
+  ,CAST(TREATY_NUMBER_y AS STRING) AS TREATY_NUMBER_Y
+  ,CAST(lossType AS STRING) AS LOSS_TYPE
+  ,CAST(potentialExposure AS DOUBLE) AS POTENTIAL_EXPOSURE
+  ,CAST(rwiCategory AS STRING) AS RWI_CATEGORY
+  ,CAST(scorQuotaShare AS DOUBLE) AS SCOR_QUOTA_SHARE
+  ,CAST(widthdrawnDate AS DATE) AS WIDTHDRAWN_DATE
+  ,CAST(retentionDropdownDate AS DATE) AS RETENTION_DROPDOWN_DATE
+  ,CAST(retentionDropdownAmount AS DOUBLE) AS RETENTION_DROPDOWN_AMOUNT
+  ,CAST(claimOriginalCurrency AS STRING) AS CLAIM_ORIGINAL_CURRENCY
+  ,CAST(rateExchange AS DOUBLE) AS RATE_EXCHANGE
+  ,CAST(claimsOverride AS STRING) AS CLAIMS_OVERRIDE
+  ,CAST(expertState AS STRING) AS EXPERT_STATE
+  ,CAST(agreementNo AS STRING) AS AGREEMENT_NO
+  ,CAST(uniqueMarketReferenceOrPolicyNumber AS STRING) AS UNIQUE_MARKET_REFERENCE_OR_POLICY_NUMBER
+  ,CAST(lloydRiskCode AS STRING) AS LLOYD_RISK_CODE
+  ,CAST(sectionNo AS STRING) AS SECTION_NO
+  ,CAST(locationRiskStateProvince AS STRING) AS LOCATION_RISK_STATE_PROVINCE
+  ,CAST(locationRiskCountry AS STRING) AS LOCATION_RISK_COUNTRY
+  ,CAST(periodCoverNarrative AS STRING) AS PERIOD_COVER_NARRATIVE
+  ,CAST(lossDateTo AS DATE) AS LOSS_DATE_TO
+  ,CAST(referralUw AS BOOLEAN) AS REFERRAL_UW
+  ,CAST(lossCounty AS STRING) AS LOSS_COUNTY
+  ,CAST(stateFilling AS STRING) AS STATE_FILLING
+  ,CAST(medicareUnitedStatesBodilyInjury AS BOOLEAN) AS MEDICARE_UNITED_STATES_BODILY_INJURY
+  ,CAST(medicareEligibilityPerformance AS STRING) AS MEDICARE_ELIGIBILITY_PERFORMANCE
+  ,CAST(medicareEligibilityOutcomeStatus AS STRING) AS MEDICARE_ELIGIBILITY_OUTCOME_STATUS
+  ,CAST(medicareConditionalPayment AS STRING) AS MEDICARE_CONDITIONAL_PAYMENT
+  ,CAST(medicareComplianceService AS STRING) AS MEDICARE_COMPLIANCE_SERVICE
+  ,CAST(coverholderPin AS STRING) AS COVERHOLDER_PIN
+  ,CAST(reportingStartDate AS DATE) AS REPORTING_START_DATE
+  ,CAST(typeOfInsurance AS STRING) AS TYPE_OF_INSURANCE
+  ,CAST(masterReference AS STRING) AS MASTER_REFERENCE
+  ,CAST(locationOfRiskLocationID AS STRING) AS LOCATION_OF_RISK_LOCATION_ID
+  ,CAST(locationoOfRiskAddress AS STRING) AS LOCATIONO_OF_RISK_ADDRESS
+  ,CAST(locationOfRiskPostcodeOrZipCodeOrSimilar AS STRING) AS LOCATION_OF_RISK_POSTCODE_OR_ZIP_CODE_OR_SIMILAR
+  ,CAST(deductibleBasis AS STRING) AS DEDUCTIBLE_BASIS
+  ,CAST(lossStreet AS STRING) AS LOSS_STREET
+  ,CAST(lossZipCode AS STRING) AS LOSS_ZIP_CODE
+  ,CAST(lloydCatCode AS STRING) AS LLOYD_CAT_CODE
+  ,CAST(automobileSchedule AS STRING) AS AUTOMOBILE_SCHEDULE
+  ,CAST(cededPrecentage AS DOUBLE) AS CEDED_PRECENTAGE
+  ,CAST(claimPlan AS STRING) AS CLAIM_PLAN
+  ,CAST(patientName AS STRING) AS PATIENT_NAME
+  ,CAST(treatmentType AS STRING) AS TREATMENT_TYPE
+  ,CAST(treatmentCountry AS STRING) AS TREATMENT_COUNTRY
+  ,CAST(treatmentDate AS DATE) AS TREATMENT_DATE
+  ,CAST(expertRole AS STRING) AS EXPERT_ROLE
+  ,CAST(expoertReference AS STRING) AS EXPOERT_REFERENCE
+  ,CAST(expertAddress AS STRING) AS EXPERT_ADDRESS
+  ,CAST(expertZipCode AS STRING) AS EXPERT_ZIP_CODE
+  ,CAST(claimDateOpened AS DATE) AS CLAIM_DATE_OPENED
+  ,CAST(coverageConfirmedDate AS DATE) AS COVERAGE_CONFIRMED_DATE
+  ,CAST(claimAgreedDate AS DATE) AS CLAIM_AGREED_DATE
+  ,CAST(claimPaidFinalDate AS DATE) AS CLAIM_PAID_FINAL_DATE
+  ,CAST(feesPaidFinalDate AS DATE) AS FEES_PAID_FINAL_DATE
+  ,CAST(subrogationDate AS DATE) AS SUBROGATION_DATE
+  ,CAST(denialReason AS STRING) AS DENIAL_REASON
+  ,CAST(amountClaimed AS DOUBLE) AS AMOUNT_CLAIMED
+  ,CAST(exGratiaPayment AS DOUBLE) AS EX_GRATIA_PAYMENT
+  ,CAST(claimNotPaidExcess AS DOUBLE) AS CLAIM_NOT_PAID_EXCESS
+  ,CAST(structureAffected AS STRING) AS STRUCTURE_AFFECTED
+  ,CAST(lossSeverity AS STRING) AS LOSS_SEVERITY
+  ,CAST(firstReserveEstablishedDate AS DATE) AS FIRST_RESERVE_ESTABLISHED_DATE
+  ,CAST(diaryDate AS DATE) AS DIARY_DATE
+  ,CAST(peerReviewDate AS DATE) AS PEER_REVIEW_DATE
+  ,CAST(expertCountry AS STRING) AS EXPERT_COUNTRY
+  ,CAST(vehicleIdentificationNumberVIN AS STRING) AS VEHICLE_IDENTIFICATION_NUMBER_VIN
+  ,CAST(claimantAddress AS STRING) AS CLAIMANT_ADDRESS
+  ,CAST(claimantCity AS STRING) AS CLAIMANT_CITY
+  ,CAST(claimantPostCode AS STRING) AS CLAIMANT_POST_CODE
+  ,CAST(claimantState AS STRING) AS CLAIMANT_STATE
+  ,CAST(lossTypeCloseDate AS DATE) AS LOSS_TYPE_CLOSE_DATE
+  ,CAST(lossTypeCloseStatus AS STRING) AS LOSS_TYPE_CLOSE_STATUS
+  ,CAST(makeofVehicle AS STRING) AS MAKEOF_VEHICLE
+  ,CAST(salvageMTD AS DOUBLE) AS SALVAGE_MTD
+  ,CAST(subroSalvageRecoveryToDate AS DOUBLE) AS SUBRO_SALVAGE_RECOVERY_TO_DATE
+  ,CAST(subrogationMTD AS DOUBLE) AS SUBROGATION_MTD
+  ,CAST(totalPaid AS DOUBLE) AS TOTAL_PAID
+  ,CAST(vehicleYear AS INT) AS VEHICLE_YEAR
+  ,CAST(scorclaimrating AS STRING) AS SCORCLAIMRATING
+  ,CAST(lobCode AS STRING) AS LOB_CODE
+  ,CAST(salvageAll AS DOUBLE) AS SALVAGE_ALL
+  ,CAST(subrogationAll AS DOUBLE) AS SUBROGATION_ALL
+  ,CAST(totalIncurredNetRecoveries AS DOUBLE) AS TOTAL_INCURRED_NET_RECOVERIES
+  ,CAST(coverageSuffix AS STRING) AS COVERAGE_SUFFIX
+  ,CAST(itdTotalRecoveries AS DOUBLE) AS ITD_TOTAL_RECOVERIES
+  ,CAST(itdTotalRecoveriesPriorPeriod AS DOUBLE) AS ITD_TOTAL_RECOVERIES_PRIOR_PERIOD
+  ,CAST(itdTotalRecoveriesThisMonth AS DOUBLE) AS ITD_TOTAL_RECOVERIES_THIS_MONTH
+  ,CAST(reinsuranceRecovery AS DOUBLE) AS REINSURANCE_RECOVERY
+  ,CAST(reservePartySuffix AS STRING) AS RESERVE_PARTY_SUFFIX
+  ,CAST(reserveReferenceNumber AS STRING) AS RESERVE_REFERENCE_NUMBER
+  ,CAST(claimType AS STRING) AS CLAIM_TYPE
+  ,CAST(deductiblePaid AS DOUBLE) AS DEDUCTIBLE_PAID
+  ,CAST(underwritingYOA AS INT) AS UNDERWRITING_YOA
+  ,CAST(deductibleBilled AS DOUBLE) AS DEDUCTIBLE_BILLED
+  ,CAST(deductiblePaidThisMonth AS DOUBLE) AS DEDUCTIBLE_PAID_THIS_MONTH
+  ,CAST(sirBilled AS DOUBLE) AS SIR_BILLED
+  ,CAST(sirPaidThisMonth AS DOUBLE) AS SIR_PAID_THIS_MONTH
+  ,CAST(sirPaidTotal AS DOUBLE) AS SIR_PAID_TOTAL
+  ,CAST(claimantCountry AS STRING) AS CLAIMANT_COUNTRY
+  ,CAST(maxPotentialLoss AS DOUBLE) AS MAX_POTENTIAL_LOSS
+  ,CAST(jurisdictionClaim AS STRING) AS JURISDICTION_CLAIM
+  ,CAST(litigationJurisdiction AS STRING) AS LITIGATION_JURISDICTION
+  ,CAST(adjuster AS STRING) AS ADJUSTER
+  ,CAST(buyerCountry AS STRING) AS BUYER_COUNTRY
+  ,CAST(recoveryAgentRef AS STRING) AS RECOVERY_AGENT_REF
+  ,CAST(lossCity AS STRING) AS LOSS_CITY
+  ,CAST(underwriteDate AS DATE) AS UNDERWRITE_DATE
+  ,CAST(recoveryAgent AS STRING) AS RECOVERY_AGENT
+  ,CAST(litigationAgainstCarrier AS BOOLEAN) AS LITIGATION_AGAINST_CARRIER
+  ,CAST(paidDateDefenceFees AS DATE) AS PAID_DATE_DEFENCE_FEES
+  ,CAST(paidDateTpaFees AS DATE) AS PAID_DATE_TPA_FEES
+  ,CAST(binderInception AS DATE) AS BINDER_INCEPTION
+  ,CAST(classofBusiness AS STRING) AS CLASSOF_BUSINESS
+  ,CAST(castelLine AS STRING) AS CASTEL_LINE
+  ,CAST(omegaTreaty AS STRING) AS OMEGA_TREATY
+  ,CAST(riskExpiryDate AS DATE) AS RISK_EXPIRY_DATE
+  ,CAST(riskInceptionDate AS DATE) AS RISK_INCEPTION_DATE
+  ,CAST(uwy AS STRING) AS UWY
+  ,CAST(claimEvent AS STRING) AS CLAIM_EVENT
+  ,CAST(activeCaseHandling AS BOOLEAN) AS ACTIVE_CASE_HANDLING
+  ,CAST(lastResultDate AS DATE) AS LAST_RESULT_DATE
+  ,CAST(takeOverDate AS DATE) AS TAKE_OVER_DATE
+  ,CAST(uwReferredReason AS STRING) AS UW_REFERRED_REASON
+  ,CAST(groupOfClaims AS STRING) AS GROUP_OF_CLAIMS
+  ,CAST(premiumPaidDate AS DATE) AS PREMIUM_PAID_DATE
+  ,CAST(propertyType AS STRING) AS PROPERTY_TYPE
+  ,CAST(buyer AS STRING) AS BUYER
+  ,CAST(estimatedSettlementDate AS DATE) AS ESTIMATED_SETTLEMENT_DATE
+  ,CAST(totalPreviouslyPaid AS DOUBLE) AS TOTAL_PREVIOUSLY_PAID
+  ,CAST(totalReserve AS DOUBLE) AS TOTAL_RESERVE
+  ,CAST(claimsHandlingExpensesIncurred AS DOUBLE) AS CLAIMS_HANDLING_EXPENSES_INCURRED
+  ,CAST(claimsHandlingExpensesOutstanding AS DOUBLE) AS CLAIMS_HANDLING_EXPENSES_OUTSTANDING
+  ,CAST(claimsHandlingExpensesPaid AS DOUBLE) AS CLAIMS_HANDLING_EXPENSES_PAID
+  ,CAST(claimsInvestigationExpenseIncurred AS DOUBLE) AS CLAIMS_INVESTIGATION_EXPENSE_INCURRED
+  ,CAST(claimsInvestigationExpenseOutstanding AS DOUBLE) AS CLAIMS_INVESTIGATION_EXPENSE_OUTSTANDING
+  ,CAST(claimsInvestigationExpensePaid AS DOUBLE) AS CLAIMS_INVESTIGATION_EXPENSE_PAID
+  ,CAST(claimsManagementExpenseIncurred AS DOUBLE) AS CLAIMS_MANAGEMENT_EXPENSE_INCURRED
+  ,CAST(claimsManagementExpenseOutstanding AS DOUBLE) AS CLAIMS_MANAGEMENT_EXPENSE_OUTSTANDING
+  ,CAST(claimsManagementExpensePaid AS DOUBLE) AS CLAIMS_MANAGEMENT_EXPENSE_PAID
+  ,CAST(fireIncurred AS DOUBLE) AS FIRE_INCURRED
+  ,CAST(fireOutstanding AS DOUBLE) AS FIRE_OUTSTANDING
+  ,CAST(firePaid AS DOUBLE) AS FIRE_PAID
+  ,CAST(ownDamageIncurred AS DOUBLE) AS OWN_DAMAGE_INCURRED
+  ,CAST(ownDamageOutstanding AS DOUBLE) AS OWN_DAMAGE_OUTSTANDING
+  ,CAST(ownDamagePaid AS DOUBLE) AS OWN_DAMAGE_PAID
+  ,CAST(storageIncurred AS DOUBLE) AS STORAGE_INCURRED
+  ,CAST(storageOutstanding AS DOUBLE) AS STORAGE_OUTSTANDING
+  ,CAST(storagePaid AS DOUBLE) AS STORAGE_PAID
+  ,CAST(theftIncurred AS DOUBLE) AS THEFT_INCURRED
+  ,CAST(theftOutstanding AS DOUBLE) AS THEFT_OUTSTANDING
+  ,CAST(theftPaid AS DOUBLE) AS THEFT_PAID
+  ,CAST(thirdPartyBodilyInjuryIncurred AS DOUBLE) AS THIRD_PARTY_BODILY_INJURY_INCURRED
+  ,CAST(thirdPartyBodilyInjuryOutstanding AS DOUBLE) AS THIRD_PARTY_BODILY_INJURY_OUTSTANDING
+  ,CAST(thirdPartyBodilyInjuryPaid AS DOUBLE) AS THIRD_PARTY_BODILY_INJURY_PAID
+  ,CAST(thirdPartyPropertyDamageIncurred AS DOUBLE) AS THIRD_PARTY_PROPERTY_DAMAGE_INCURRED
+  ,CAST(thirdPartyPropertyDamageOutstanding AS DOUBLE) AS THIRD_PARTY_PROPERTY_DAMAGE_OUTSTANDING
+  ,CAST(thirdPartyPropertyDamagePaid AS DOUBLE) AS THIRD_PARTY_PROPERTY_DAMAGE_PAID
+  ,CAST(windscreenIncurred AS DOUBLE) AS WINDSCREEN_INCURRED
+  ,CAST(windscreenOutstanding AS DOUBLE) AS WINDSCREEN_OUTSTANDING
+  ,CAST(windscreenPaid AS DOUBLE) AS WINDSCREEN_PAID
+  ,CAST(grossTotalIncurred AS DOUBLE) AS GROSS_TOTAL_INCURRED
+  ,CAST(incurredExpenses AS DOUBLE) AS INCURRED_EXPENSES
+  ,CAST(incurredIndemnity AS DOUBLE) AS INCURRED_INDEMNITY
+  ,CAST(compulsoryExcessAmount AS DOUBLE) AS COMPULSORY_EXCESS_AMOUNT
+  ,CAST(daysbetweenInceptionandIncident AS INT) AS DAYSBETWEEN_INCEPTIONAND_INCIDENT
+  ,CAST(daystoReport AS INT) AS DAYSTO_REPORT
+  ,CAST(driverDOB AS DATE) AS DRIVER_DOB
+  ,CAST(driverDOBmatchNamedDriverDOB AS BOOLEAN) AS DRIVER_DOB_MATCH_NAMED_DRIVER_DOB
+  ,CAST(fraudFlag AS BOOLEAN) AS FRAUD_FLAG
+  ,CAST(ncdAffected AS BOOLEAN) AS NCD_AFFECTED
+  ,CAST(owner AS STRING) AS OWNER
+  ,CAST(telematicsPolicy AS BOOLEAN) AS TELEMATICS_POLICY
+  ,CAST(totalLoss AS BOOLEAN) AS TOTAL_LOSS
+  ,CAST(totalPassengers AS INT) AS TOTAL_PASSENGERS
+  ,CAST(vehicleType AS STRING) AS VEHICLE_TYPE
+  ,CAST(voluntaryExcessAmount AS DOUBLE) AS VOLUNTARY_EXCESS_AMOUNT
+  ,CAST(anticipatedRecovery AS DOUBLE) AS ANTICIPATED_RECOVERY
+  ,CAST(grossIncurred AS DOUBLE) AS GROSS_INCURRED
+  ,CAST(salvagePaid AS DOUBLE) AS SALVAGE_PAID
+  ,CAST(salvageReserves AS DOUBLE) AS SALVAGE_RESERVES
+  ,CAST(subrogationPaid AS DOUBLE) AS SUBROGATION_PAID
+  ,CAST(subrogationReserves AS DOUBLE) AS SUBROGATION_RESERVES
+  ,CAST(currentDateofTreatment AS DATE) AS CURRENT_DATEOF_TREATMENT
+  ,CAST(haspetdied AS BOOLEAN) AS HASPETDIED
+  ,CAST(numberofTreatments AS INT) AS NUMBEROF_TREATMENTS
+  ,CAST(petBreed AS STRING) AS PET_BREED
+  ,CAST(petName AS STRING) AS PET_NAME
+  ,CAST(petType AS STRING) AS PET_TYPE
+  ,CAST(schemeTPAName AS STRING) AS SCHEME_TPA_NAME
+  ,CAST(subStatus AS STRING) AS SUB_STATUS
+  ,CAST(totalPaidthisMonth AS DOUBLE) AS TOTAL_PAIDTHIS_MONTH
+  ,CAST(treatmentSource AS STRING) AS TREATMENT_SOURCE
+  ,CAST(startDateofTreatment AS DATE) AS START_DATEOF_TREATMENT
+  ,CAST(lossGeneralNature AS STRING) AS LOSS_GENERAL_NATURE
+  ,CAST(animalBreed AS STRING) AS ANIMAL_BREED
+  ,CAST(armLimit AS DOUBLE) AS ARM_LIMIT
+  ,CAST(ecseLimit AS DOUBLE) AS ECSE_LIMIT
+  ,CAST(horseAge AS INT) AS HORSE_AGE
+  ,CAST(horseName AS STRING) AS HORSE_NAME
+  ,CAST(horseSex AS STRING) AS HORSE_SEX
+  ,CAST(horseUse AS STRING) AS HORSE_USE
+  ,CAST(majorMedical AS STRING) AS MAJOR_MEDICAL
+  ,CAST(mortalityLossYN AS BOOLEAN) AS MORTALITY_LOSS_YN
+  ,CAST(tagNo AS STRING) AS TAG_NO
+  ,CAST(areaofPracticeAOPCode AS STRING) AS AREAOF_PRACTICE_AOP_CODE
+  ,CAST(causeofLossDescription AS STRING) AS CAUSEOF_LOSS_DESCRIPTION
+  ,CAST(businessInterruptionOutstanding AS DOUBLE) AS BUSINESS_INTERRUPTION_OUTSTANDING
+  ,CAST(businessInterruptionPaid AS DOUBLE) AS BUSINESS_INTERRUPTION_PAID
+  ,CAST(businessInterruptionRecovered AS DOUBLE) AS BUSINESS_INTERRUPTION_RECOVERED
+  ,CAST(businessInterruptionReserve AS DOUBLE) AS BUSINESS_INTERRUPTION_RESERVE
+  ,CAST(claimCause AS STRING) AS CLAIM_CAUSE
+  ,CAST(fatalities AS INT) AS FATALITIES
+  ,CAST(fault AS BOOLEAN) AS FAULT
+  ,CAST(minorInvolved AS BOOLEAN) AS MINOR_INVOLVED
+  ,CAST(ownDamageRecovered AS DOUBLE) AS OWN_DAMAGE_RECOVERED
+  ,CAST(ownDamageRecoveryReserve AS DOUBLE) AS OWN_DAMAGE_RECOVERY_RESERVE
+  ,CAST(product AS STRING) AS PRODUCT
+  ,CAST(thirdPartyPropertyDamageRecovered AS DOUBLE) AS THIRD_PARTY_PROPERTY_DAMAGE_RECOVERED
+  ,CAST(thirdPartyPropertyDamageReserve AS DOUBLE) AS THIRD_PARTY_PROPERTY_DAMAGE_RESERVE
+  ,CAST(totalRecoveryReserve AS DOUBLE) AS TOTAL_RECOVERY_RESERVE
+  ,CAST(youngestMinorInvolved AS INT) AS YOUNGEST_MINOR_INVOLVED
+  ,CAST(claimCoverageDescription AS STRING) AS CLAIM_COVERAGE_DESCRIPTION
+  ,CAST(closingReason AS STRING) AS CLOSING_REASON
+  ,CAST(continuationType AS STRING) AS CONTINUATION_TYPE
+  ,CAST(copayPaidAmount AS DOUBLE) AS COPAY_PAID_AMOUNT
+  ,CAST(copayReserveAmount AS DOUBLE) AS COPAY_RESERVE_AMOUNT
+  ,CAST(overLimitDeduction AS DOUBLE) AS OVER_LIMIT_DEDUCTION
+  ,CAST(petID AS STRING) AS PET_ID
+  ,CAST(uncoveredAmount AS DOUBLE) AS UNCOVERED_AMOUNT
+  ,CAST(vetID AS STRING) AS VET_ID
+  ,CAST(voluntaryPayment AS DOUBLE) AS VOLUNTARY_PAYMENT
+
+  -- Nested struct: 100% fields (accessed via 100_percentage alias)
+  ,CAST(`100%`:paidMonthFees AS DOUBLE) AS PCT100_PAID_MONTH_FEES
+  ,CAST(`100%`:paidMonthAdjFee AS DOUBLE) AS PCT100_PAID_MONTH_ADJ_FEE
+  ,CAST(`100%`:paidMonthAttyFee AS DOUBLE) AS PCT100_PAID_MONTH_ATTY_FEE
+  ,CAST(`100%`:previousPaidFees AS DOUBLE) AS PCT100_PREVIOUS_PAID_FEES
+  ,CAST(`100%`:previousPaidAdj AS DOUBLE) AS PCT100_PREVIOUS_PAID_ADJ
+  ,CAST(`100%`:previousPaidAtty AS DOUBLE) AS PCT100_PREVIOUS_PAID_ATTY
+  ,CAST(`100%`:reserveIndemnity AS DOUBLE) AS PCT100_RESERVE_INDEMNITY
+  ,CAST(`100%`:reserveFees AS DOUBLE) AS PCT100_RESERVE_FEES
+  ,CAST(`100%`:reserveAdjFee AS DOUBLE) AS PCT100_RESERVE_ADJ_FEE
+  ,CAST(`100%`:reserveAttyFee AS DOUBLE) AS PCT100_RESERVE_ATTY_FEE
+  ,CAST(`100%`:grossTotalncurred AS DOUBLE) AS PCT100_GROSS_TOTAL_NCURRED
+  ,CAST(`100%`:deductibleAmount AS DOUBLE) AS PCT100_DEDUCTIBLE_AMOUNT
+  ,CAST(`100%`:subrogationSalvage AS DOUBLE) AS PCT100_SUBROGATION_SALVAGE
+  ,CAST(`100%`:incurredndemnity AS DOUBLE) AS PCT100_INCURRED_NDEMNITY
+  ,CAST(`100%`:incurredxpenses AS DOUBLE) AS PCT100_INCURRED_XPENSES
+  ,CAST(`100%`:paidMonthIndemnity AS DOUBLE) AS PCT100_PAID_MONTH_INDEMNITY
+  ,CAST(`100%`:previousPaidIndemnity AS DOUBLE) AS PCT100_PREVIOUS_PAID_INDEMNITY
+  ,CAST(`100%`:buybackResale AS DOUBLE) AS PCT100_BUYBACK_RESALE
+  ,CAST(`100%`:changeMonthIndemnity AS DOUBLE) AS PCT100_CHANGE_MONTH_INDEMNITY
+  ,CAST(`100%`:changeMonthFeesExpenses AS DOUBLE) AS PCT100_CHANGE_MONTH_FEES_EXPENSES
+  ,CAST(`100%`:paidMonthDefenceFees AS DOUBLE) AS PCT100_PAID_MONTH_DEFENCE_FEES
+  ,CAST(`100%`:paidMonthTpaFee AS DOUBLE) AS PCT100_PAID_MONTH_TPA_FEE
+  ,CAST(`100%`:previousPaidDefence AS DOUBLE) AS PCT100_PREVIOUS_PAID_DEFENCE
+  ,CAST(`100%`:previousPaidTpa AS DOUBLE) AS PCT100_PREVIOUS_PAID_TPA
+  ,CAST(`100%`:reserveDefence AS DOUBLE) AS PCT100_RESERVE_DEFENCE
+  ,CAST(`100%`:reserveTpaFee AS DOUBLE) AS PCT100_RESERVE_TPA_FEE
+  ,CAST(`100%`:sumInsured AS DOUBLE) AS PCT100_SUM_INSURED
+  ,CAST(`100%`:reserveLaeFee AS DOUBLE) AS PCT100_RESERVE_LAE_FEE
+  ,CAST(`100%`:paidMonthLaeFees AS DOUBLE) AS PCT100_PAID_MONTH_LAE_FEES
+  ,CAST(`100%`:previousPaidLae AS DOUBLE) AS PCT100_PREVIOUS_PAID_LAE
+
+  -- Nested struct: original fields
+  ,CAST(original:paidMonthIndemnity AS DOUBLE) AS ORIGINAL_PAID_MONTH_INDEMNITY
+  ,CAST(original:paidMonthFees AS DOUBLE) AS ORIGINAL_PAID_MONTH_FEES
+  ,CAST(original:paidMonthAdjFee AS DOUBLE) AS ORIGINAL_PAID_MONTH_ADJ_FEE
+  ,CAST(original:paidMonthTpaFee AS DOUBLE) AS ORIGINAL_PAID_MONTH_TPA_FEE
+  ,CAST(original:previousPaidIndemnity AS DOUBLE) AS ORIGINAL_PREVIOUS_PAID_INDEMNITY
+  ,CAST(original:previousPaidFees AS DOUBLE) AS ORIGINAL_PREVIOUS_PAID_FEES
+  ,CAST(original:previousPaidAdj AS DOUBLE) AS ORIGINAL_PREVIOUS_PAID_ADJ
+  ,CAST(original:previousPaidTpa AS DOUBLE) AS ORIGINAL_PREVIOUS_PAID_TPA
+  ,CAST(original:reserveIndemnity AS DOUBLE) AS ORIGINAL_RESERVE_INDEMNITY
+  ,CAST(original:reserveFees AS DOUBLE) AS ORIGINAL_RESERVE_FEES
+  ,CAST(original:reserveAdjFee AS DOUBLE) AS ORIGINAL_RESERVE_ADJ_FEE
+  ,CAST(original:reserveTpaFee AS DOUBLE) AS ORIGINAL_RESERVE_TPA_FEE
+  ,CAST(original:grossTotalncurred AS DOUBLE) AS ORIGINAL_GROSS_TOTAL_NCURRED
+  ,CAST(original:incurredndemnity AS DOUBLE) AS ORIGINAL_INCURRED_NDEMNITY
+  ,CAST(original:incurredxpenses AS DOUBLE) AS ORIGINAL_INCURRED_XPENSES
+  ,CAST(original:changeMonthIndemnity AS DOUBLE) AS ORIGINAL_CHANGE_MONTH_INDEMNITY
+  ,CAST(original:changeMonthFeesExpenses AS DOUBLE) AS ORIGINAL_CHANGE_MONTH_FEES_EXPENSES
+  ,CAST(original:paidMonthLaeFees AS DOUBLE) AS ORIGINAL_PAID_MONTH_LAE_FEES
+  ,CAST(original:previousPaidLae AS DOUBLE) AS ORIGINAL_PREVIOUS_PAID_LAE
+  ,CAST(original:reserveLaeFee AS DOUBLE) AS ORIGINAL_RESERVE_LAE_FEE
+
+FROM portfolio_risks_bronze.mongo_claim_bordereaux_transactions
+)
