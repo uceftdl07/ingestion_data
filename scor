@@ -1,7 +1,3 @@
-from pyspark.sql.types import *
-
-from pyspark.sql.types import *
-
 bordereaux_transactions_schema = StructType([
     StructField(
         "claimTransactions",
@@ -414,59 +410,4 @@ bordereaux_transactions_schema = StructType([
         ),
         True,
     )
-])
-
-claim_masters_schema = StructType([
-    StructField("claimPolicyNumber", StringType(), True),
-    StructField("claimReference", StringType(), True),
-    StructField("lossCauseCode", StringType(), True),
-    StructField("claimStatus", StringType(), True),
-    StructField("settlementCurrency", StringType(), True),
-    StructField("originalCurrency", StringType(), True),
-    StructField("lossDateFrom", StringType(), True),
-    StructField("programId", StringType(), True),
-    StructField("facilityId", StringType(), True),
-    StructField("CM_ID", StringType(), True),
-    StructField("closedDate", StringType(), True),
-    StructField("claimantName", StringType(), True),
-    StructField("rollbackFlag", StringType(), True),
-    StructField("firstAdvisedDate", StringType(), True),
-    StructField("widthdrawnDate", StringType(), True),
-    StructField("claimDateOpened", StringType(), True)
-])
-
-claim_transaction_schema = StructType([
-    StructField("claimPolicyNumber", StringType(), True),
-    StructField("claimReference", StringType(), True),
-    StructField("lossCauseCode", StringType(), True),
-    StructField("tpaLossCauseCode", StringType(), True),
-    StructField("claimStatus", StringType(), True),
-    StructField("claimNote", StringType(), True),
-    StructField("lossCountry", StringType(), True),
-    StructField("settlementCurrency", StringType(), True),
-    StructField("originalCurrency", StringType(), True),
-    StructField("lobDescription", StringType(), True),
-    StructField("scorShare", StringType(), True),
-    StructField("username", StringType(), True),
-    StructField("filename", StringType(), True),
-    StructField("bdx_imp_id", StringType(), True),
-    StructField("CM_ID", StringType(), True),
-    StructField("CT_ID", StringType(), True),
-    StructField("closedDate", StringType(), True),
-    StructField("reportingEndDate", StringType(), True),
-    StructField("insuredFullNameOrCompanyName", StringType(), True),
-    StructField("claimantName", StringType(), True),
-    StructField("rollbackFlag", StringType(), True),
-    StructField("inError", StringType(), True),
-    StructField("lossDescription", StringType(), True),
-    StructField("lossState", StringType(), True),
-    StructField("claimDenial", StringType(), True),
-    StructField("reopenedDate", StringType(), True),
-    StructField("denialDate", StringType(), True),
-    StructField("lossType", StringType(), True),
-    StructField("potentialExposure", StringType(), True),
-    StructField("rwiCategory", StringType(), True),
-    StructField("widthdrawnDate", StringType(), True),
-    StructField("retentionDropdownDate", StringType(), True)
-
 ])
