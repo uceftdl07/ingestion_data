@@ -1,22 +1,51 @@
 import requests
-from transforms.api import transform, Output
+from transforms.api import transform, Output, configure
 
-# Configure your egress target in the transform decorator if necessary
+# 1. Attach your approved network egress policy to this specific transform compute job
+@configure(network_policy="ri.foundry.main.network-policy.xxxx-xxxx-xxxx")
 @transform(
-    processed_out=Output("/YourSpace/Projects/Build_Monitor/output_log")
+    processed_out=Output("/YourSpace/Projects/Build_Monitor/summary_log")
 )
-def check_build_and_notify(ctx, processed_out):
-    build_rid = "ri.foundry.main.build.xxxx-xxxx-xxxx"
+def bulk_check_builds(ctx, processed_out):
+    # 2. Paste your 15 specific Build RIDs here
+    build_rids = [
+        "ri.foundry.main.build.11111111-1111-1111-1111-111111111111",
+        "ri.foundry.main.build.22222222-2222-2222-2222-222222222222",
+        "ri.foundry.main.build.33333333-3333-3333-3333-333333333333",
+        "ri.foundry.main.build.44444444-4444-4444-4444-444444444444",
+        "ri.foundry.main.build.55555555-5555-5555-5555-555555555555",
+        "ri.foundry.main.build.66666666-6666-6666-6666-666666666666",
+        "ri.foundry.main.build.77777777-7777-7777-7777-777777777777",
+        "ri.foundry.main.build.88888888-8888-8888-8888-888888888888",
+        "ri.foundry.main.build.99999999-9999-9999-9999-999999999999",
+        "ri.foundry.main.build.aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+        "ri.foundry.main.build.bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+        "ri.foundry.main.build.cccccccc-cccc-cccc-cccc-cccccccccccc",
+        "ri.foundry.main.build.dddddddd-dddd-dddd-dddd-dddddddddddd",
+        "ri.foundry.main.build.eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
+        "ri.foundry.main.build.ffffffff-ffff-ffff-ffff-ffffffffffff"
+    ]
     
-    # 1. Fetch the build status using the Foundry Platform API Client
+    # Target Microsoft Teams Incoming Webhook URL
+    teams_webhook_url = "https://yourcompany.webhook.office.com/webhookb2/your-unique-token-here"
+    
+    # Initialize the Foundry platform client context
     client = ctx.foundry_client
-    build_response = client.builds.Build.get(build_rid)
-    status = build_response.status  # e.g., 'SUCCEEDED', 'FAILED', 'RUNNING'
+    facts_list = []
     
-    # 2. Teams Webhook Configuration
-    teams_webhook_url = "https://yourcompany.webhook.office.com/webhookb2/..."
-    
-    # Structure an elegant Teams Adaptive Card
+    # 3. Fetch statuses using the Foundry platform client
+    for rid in build_rids:
+        try:
+            build_api_response = client.builds.Build.get(rid)
+            status = build_api_response.status  # Expected values: 'SUCCEEDED', 'FAILED', 'RUNNING', etc.
+        except Exception as e:
+            status = f"⚠️ API Error: {str(e)}"
+            
+        # Truncate the RID to make it legible in the Teams UI layout
+        short_rid = f"...{rid[-12:]}"
+        facts_list.append({"title": f"Build ({short_rid})", "value": status})
+
+    # 4. Build a Microsoft Teams Adaptive Card payload
     payload = {
         "type": "message",
         "attachments": [{
@@ -25,20 +54,34 @@ def check_build_and_notify(ctx, processed_out):
                 "type": "AdaptiveCard",
                 "version": "1.4",
                 "body": [
-                    {"type": "TextBlock", "text": "Foundry Build Status Update", "weight": "Bolder", "size": "Medium"},
-                    {"type": "FactSet", "facts": [
-                        {"title": "Build RID:", "value": build_rid},
-                        {"title": "Status:", "value": status}
-                    ]}
+                    {
+                        "type": "TextBlock", 
+                        "text": "📊 Foundry Bulk Build Monitor", 
+                        "weight": "Bolder", 
+                        "size": "Medium"
+                    },
+                    {
+                        "type": "TextBlock", 
+                        "text": "Status report for monitored pipelines:", 
+                        "isSubdued": True
+                    },
+                    {
+                        "type": "FactSet", 
+                        "facts": facts_list
+                    }
                 ]
             }
         }]
     }
     
-    # 3. Post to Teams
-    response = requests.post(teams_webhook_url, json=payload)
-    if response.status_code != 200:
-        raise ValueError(f"Failed to send Teams notification: {response.text}")
+    # 5. Push the data out to Teams via HTTP POST (Authorized by Egress Policy)
+    try:
+        response = requests.post(teams_webhook_url, json=payload, timeout=10)
+        response.raise_for_be_status()
+    except requests.exceptions.RequestException as req_err:
+        raise RuntimeError(f"Failed to post notification to Microsoft Teams: {req_err}")
         
-    # Write dummy log to satisfy transform requirements
-    # ...
+    # 6. Write tracking data back to Foundry to satisfy the Output requirement
+    # This prevents the job from failing due to an empty output dataset
+    summary_df = ctx.spark.createDataFrame([("SUCCESS", len(build_rids))], ["execution_status", "builds_checked"])
+    processed_out.write_dataframe(summary_df)
