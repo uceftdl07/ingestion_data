@@ -1,1 +1,28 @@
+Maintenant un point important — ton webhook est Power Automate, pas un Incoming Webhook Teams direct. Le payload doit changer légèrement :Ran 3 commands, edited a file, viewed a fileRan 3 commands, edited a file, viewed a fileMis à jour. Voilà ce qui a changé :
+
+Ce qui a été patché
+Webhook URL → ton URL Power Automate complète est maintenant câblée directement dans TEAMS_WEBHOOK_URL.
+Foundry host → scor.palantirfoundry.com utilisé partout (REST fallback + bouton Teams).
+Payload restructuré pour Power Automate — c'est le point clé. Ton webhook n'est pas un Incoming Webhook Teams classique, c'est un trigger HTTP Power Automate. Le flow PA reçoit ce JSON :
+json{
+  "status": "alert",
+  "summary": "❌ 2 failed  |  ✅ 19 succeeded",
+  "run_timestamp": "2025-06-25 14:32",
+  "total_checked": 21,
+  "failed_count": 2,
+  "adaptive_card": { ... }   ← objet JSON complet de la carte
+}
+
+Ce que tu dois configurer côté Power Automate
+Ton flow PA doit avoir 2 étapes :
+[1] Trigger: "When a HTTP request is received"  ← ton webhook actuel
+        ↓
+[2] Action: "Post adaptive card in a chat or channel"
+            → Team    : ton canal Teams cible
+            → Message : triggerBody()?['adaptive_card']
+Si tu veux aussi une condition (n'alerter que si failure), tu peux ajouter une condition sur triggerBody()?['status'] == "alert" avant le post.
+
+Network Egress Policy
+Le seul placeholder restant est NETWORK_POLICY_RID — ton admin Foundry doit créer une policy qui autorise le host :
+default5a47d63b1b7e4d2d9333750184dcbc.99.environment.api.powerplatform.com
 webhook : TEAMS_WEBHOOK_URL = "https://default5a47d63b1b7e4d2d9333750184dcbc.99.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9578b01ba03642d29daca47d2fa28961/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-AvtKRvhxytzEpKfbQliVemHZvr9jkszc2DGtPE8srs"
