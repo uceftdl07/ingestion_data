@@ -1,93 +1,347 @@
+"""
+================================================================================
+  Foundry Pipeline Health Check — Teams Notifier
+  ------------------------------------------------
+  Checks the status of all monitored Schedules & Builds on Foundry,
+  then pushes a rich Adaptive Card report to a Microsoft Teams channel.
+
+  Architecture:
+    - Runs as a Foundry Code Repository Transform (Python)
+    - Scheduled via Foundry Scheduler (e.g. every 30 min)
+    - Requires a Network Egress Policy RID (for the Teams webhook outbound call)
+    - Writes a summary dataset back to Foundry (mandatory Output)
+
+  Author  : <your-name>
+  Updated : 2025
+================================================================================
+"""
+
+import json
+import logging
+from datetime import datetime, timezone
+from typing import Any
+
 import requests
-from transforms.api import transform, Output, configure
+from transforms.api import configure, Output, transform
 
-# 1. Attach your approved network egress policy to this specific transform compute job
-@configure(network_policy="ri.foundry.main.network-policy.xxxx-xxxx-xxxx")
-@transform(
-    processed_out=Output("/YourSpace/Projects/Build_Monitor/summary_log")
+# ──────────────────────────────────────────────────────────────────────────────
+# CONFIGURATION — edit this block only
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Foundry Network Egress Policy (must allow outbound to *.webhook.office.com)
+NETWORK_POLICY_RID = "ri.foundry.main.network-policy.xxxx-xxxx-xxxx"
+
+# Output dataset path (Foundry)
+OUTPUT_PATH = "/YourSpace/Projects/Build_Monitor/summary_log"
+
+# Microsoft Teams Incoming Webhook URL
+TEAMS_WEBHOOK_URL = (
+    "https://yourcompany.webhook.office.com/webhookb2/your-unique-token-here"
 )
-def bulk_check_builds(ctx, processed_out):
-    # 2. Paste your 15 specific Build RIDs here
-    JOB_RIDS = [
-    "ri.scheduler.main.schedule.fa679d95-9758-4cce-9413-750b9230bfe9",
-    "ri.scheduler.main.schedule.00ea559b-7360-42a4-8732-3158366d142d",
-    "ri.scheduler.main.schedule.c1fd8c09-ee7b-42aa-a78d-916e0877c503",
-    "ri.scheduler.main.schedule.97f67366-9d9e-4557-945b-c363273531f6",
-    "ri.scheduler.main.schedule.aabef8fb-3a09-4235-a1c3-4550021b8888",
-    "ri.scheduler.main.schedule.77e33e18-1f6e-4424-8635-f313b3b6bd14",
-    "ri.scheduler.main.schedule.0bac4111-6b61-4f47-b4ff-5128b6b72345",
-    "ri.scheduler.main.schedule.f741e2b4-631d-4cb1-9756-5973c17638b0",
-    "ri.scheduler.main.schedule.db4ebe98-b91a-4bc4-b175-31762d1048e3",
-    "ri.scheduler.main.schedule.1c421b6b-b86b-4f00-862b-897a96e60200",
-    "ri.scheduler.main.schedule.894a9df1-882e-4beb-8974-b1a608152e89",
-    "ri.scheduler.main.schedule.33329528-237f-49a3-a933-a9cbffca1580",
-    "ri.scheduler.main.schedule.121bae62-974c-4c8b-823b-71fa7abe9e47",
-    "ri.scheduler.main.schedule.c9ecf604-0e0f-49f6-9ae0-c2dfc1bee170",
-    "ri.scheduler.main.schedule.c9e67834-f1f0-4062-a67f-be27b54157ef",
-    "ri.scheduler.main.schedule.c4fd6acb-0edd-485f-b3b9-cdb635c1c30f",
-    "ri.scheduler.main.schedule.29e45b67-4c9a-4e6d-8c5c-218a40b47104",
-    "ri.scheduler.main.schedule.e2d901f5-e204-4bbb-9b59-3891b66027e5",
-    "ri.scheduler.main.schedule.11bc58a0-1edf-4dac-af00-67e39adcd08d",
-    "ri.scheduler.main.schedule.2ffa689e-02ed-44b9-a139-2c78591ab650",
-    "ri.scheduler.main.schedule.a171ec92-6670-4f76-80d4-c072d1e26fc5"
-]
-    
-    # Target Microsoft Teams Incoming Webhook URL
-    teams_webhook_url = "https://yourcompany.webhook.office.com/webhookb2/your-unique-token-here"
-    
-    # Initialize the Foundry platform client context
-    client = ctx.foundry_client
-    facts_list = []
-    
-    # 3. Fetch statuses using the Foundry platform client
-    for rid in build_rids:
-        try:
-            build_api_response = client.builds.Build.get(rid)
-            status = build_api_response.status  # Expected values: 'SUCCEEDED', 'FAILED', 'RUNNING', etc.
-        except Exception as e:
-            status = f"⚠️ API Error: {str(e)}"
-            
-        # Truncate the RID to make it legible in the Teams UI layout
-        short_rid = f"...{rid[-12:]}"
-        facts_list.append({"title": f"Build ({short_rid})", "value": status})
 
-    # 4. Build a Microsoft Teams Adaptive Card payload
+# ── Schedules to monitor ──────────────────────────────────────────────────────
+# Format: { "label": "human-readable name", "rid": "ri.scheduler.main.schedule.xxx" }
+MONITORED_SCHEDULES = [
+    {"label": "Ingest — SQS Raw",            "rid": "ri.scheduler.main.schedule.fa679d95-9758-4cce-9413-750b9230bfe9"},
+    {"label": "DLT — RAW → CURATED",         "rid": "ri.scheduler.main.schedule.00ea559b-7360-42a4-8732-3158366d142d"},
+    {"label": "DLT — CURATED → GOLD",        "rid": "ri.scheduler.main.schedule.c1fd8c09-ee7b-42aa-a78d-916e0877c503"},
+    {"label": "Sync — Lakebase PostgreSQL",  "rid": "ri.scheduler.main.schedule.97f67366-9d9e-4557-945b-c363273531f6"},
+    {"label": "Portfolio Risk — Bronze",     "rid": "ri.scheduler.main.schedule.aabef8fb-3a09-4235-a1c3-4550021b8888"},
+    {"label": "Portfolio Risk — Silver",     "rid": "ri.scheduler.main.schedule.77e33e18-1f6e-4424-8635-f313b3b6bd14"},
+    {"label": "Vessels — Incremental Load",  "rid": "ri.scheduler.main.schedule.0bac4111-6b61-4f47-b4ff-5128b6b72345"},
+    {"label": "Vessels — dbt Transform",     "rid": "ri.scheduler.main.schedule.f741e2b4-631d-4cb1-9756-5973c17638b0"},
+    {"label": "DCM — Metrics Aggregation",   "rid": "ri.scheduler.main.schedule.db4ebe98-b91a-4bc4-b175-31762d1048e3"},
+    {"label": "DCM — DQ Rules Check",        "rid": "ri.scheduler.main.schedule.1c421b6b-b86b-4f00-862b-897a96e60200"},
+    {"label": "Asset Data — REST Ingest",    "rid": "ri.scheduler.main.schedule.894a9df1-882e-4beb-8974-b1a608152e89"},
+    {"label": "Asset Data — PySpark Flatten","rid": "ri.scheduler.main.schedule.33329528-237f-49a3-a933-a9cbffca1580"},
+    {"label": "Billing — DBU Usage",         "rid": "ri.scheduler.main.schedule.121bae62-974c-4c8b-823b-71fa7abe9e47"},
+    {"label": "Billing — Cost Estimation",   "rid": "ri.scheduler.main.schedule.c9ecf604-0e0f-49f6-9ae0-c2dfc1bee170"},
+    {"label": "Unity Catalog — Lineage Sync","rid": "ri.scheduler.main.schedule.c9e67834-f1f0-4062-a67f-be27b54157ef"},
+    {"label": "CI/CD — DAB Deploy Check",    "rid": "ri.scheduler.main.schedule.c4fd6acb-0edd-485f-b3b9-cdb635c1c30f"},
+    {"label": "GitHub Actions — Trigger",    "rid": "ri.scheduler.main.schedule.29e45b67-4c9a-4e6d-8c5c-218a40b47104"},
+    {"label": "Anomaly Detection — Alerts",  "rid": "ri.scheduler.main.schedule.e2d901f5-e204-4bbb-9b59-3891b66027e5"},
+    {"label": "Structured Streaming — SQS",  "rid": "ri.scheduler.main.schedule.11bc58a0-1edf-4dac-af00-67e39adcd08d"},
+    {"label": "OpenAI — Summarizer Job",     "rid": "ri.scheduler.main.schedule.2ffa689e-02ed-44b9-a139-2c78591ab650"},
+    {"label": "Full Refresh — Gold Layer",   "rid": "ri.scheduler.main.schedule.a171ec92-6670-4f76-80d4-c072d1e26fc5"},
+]
+
+# ── Status rendering config ───────────────────────────────────────────────────
+# Maps Foundry schedule/build statuses to Teams-friendly emoji + label
+STATUS_MAP: dict[str, dict[str, str]] = {
+    "SUCCEEDED":  {"emoji": "✅", "label": "Succeeded",  "color": "Good"},
+    "RUNNING":    {"emoji": "🔄", "label": "Running",    "color": "Accent"},
+    "FAILED":     {"emoji": "❌", "label": "Failed",     "color": "Attention"},
+    "CANCELED":   {"emoji": "⛔", "label": "Canceled",   "color": "Warning"},
+    "PAUSED":     {"emoji": "⏸️", "label": "Paused",     "color": "Warning"},
+    "UNKNOWN":    {"emoji": "❓", "label": "Unknown",    "color": "Default"},
+    "API_ERROR":  {"emoji": "⚠️", "label": "API Error",  "color": "Attention"},
+}
+
+# HTTP request timeout (seconds)
+REQUEST_TIMEOUT_SECS = 15
+
+# ──────────────────────────────────────────────────────────────────────────────
+
+log = logging.getLogger(__name__)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  CORE HELPERS
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _fetch_schedule_status(client: Any, rid: str) -> dict[str, str]:
+    """
+    Fetch the current run status for a Foundry schedule RID.
+
+    Priority strategy:
+      1. Try the typed SDK client (foundry-platform-python ≥ 2.x)
+      2. Fall back to REST API if the SDK method doesn't exist
+      3. Return API_ERROR on any exception so the job never hard-crashes
+
+    Returns a dict with keys: status_key, status_label, emoji, color
+    """
+    raw_status = "UNKNOWN"
+    try:
+        # ── Strategy 1: SDK (preferred) ──
+        # The SDK exposes .schedules on the platform client since platform SDK v2.
+        # Adjust the attribute path if your Foundry stack uses a different SDK version.
+        schedule_obj = client.schedules.Schedule.get(rid)
+
+        # The SDK may expose the status under different attribute names depending
+        # on the SDK version — we try the most common ones defensively.
+        for attr in ("current_run_status", "status", "lastRunStatus"):
+            val = getattr(schedule_obj, attr, None)
+            if val:
+                raw_status = str(val).upper()
+                break
+
+    except AttributeError:
+        # ── Strategy 2: REST fallback ──
+        # This path is used if the SDK doesn't expose .schedules yet.
+        # Replace <your-stack> with your actual Foundry hostname.
+        log.warning("SDK .schedules not available — falling back to REST for %s", rid)
+        try:
+            headers = {"Authorization": f"Bearer {client.auth_token}"}
+            resp = requests.get(
+                f"https://<your-stack>.palantirfoundry.com/scheduler/api/schedules/{rid}",
+                headers=headers,
+                timeout=REQUEST_TIMEOUT_SECS,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            raw_status = str(
+                data.get("currentRunStatus") or data.get("status") or "UNKNOWN"
+            ).upper()
+        except Exception as rest_err:
+            log.error("REST fallback failed for %s: %s", rid, rest_err)
+            raw_status = "API_ERROR"
+
+    except Exception as sdk_err:
+        log.error("SDK error for %s: %s", rid, sdk_err)
+        raw_status = "API_ERROR"
+
+    meta = STATUS_MAP.get(raw_status, STATUS_MAP["UNKNOWN"])
+    return {
+        "status_key":   raw_status,
+        "status_label": meta["label"],
+        "emoji":        meta["emoji"],
+        "color":        meta["color"],
+    }
+
+
+def _build_teams_payload(
+    results: list[dict],
+    run_ts: str,
+) -> dict:
+    """
+    Build a rich Microsoft Teams Adaptive Card payload.
+
+    Layout:
+      ┌─────────────────────────────────────────────────────┐
+      │  📊 Foundry Pipeline Health Check                   │
+      │  Last run: 2025-06-25 14:32 UTC                     │
+      ├─────────────────────────────────────────────────────┤
+      │  ✅ 17  ❌ 2  🔄 1  ⛔ 1                            │
+      ├─────────────────────────────────────────────────────┤
+      │  Ingest — SQS Raw           ✅ Succeeded            │
+      │  DLT — RAW → CURATED        ❌ Failed               │
+      │  ...                                                 │
+      └─────────────────────────────────────────────────────┘
+    """
+    # ── Summary counters ──
+    counts: dict[str, int] = {k: 0 for k in STATUS_MAP}
+    for r in results:
+        counts[r["status_key"]] = counts.get(r["status_key"], 0) + 1
+
+    total     = len(results)
+    succeeded = counts.get("SUCCEEDED", 0)
+    failed    = counts.get("FAILED", 0)
+    running   = counts.get("RUNNING", 0)
+    errors    = counts.get("API_ERROR", 0)
+
+    # Overall header color: green if all good, red if any failure/error
+    header_color = "Good" if (failed + errors) == 0 else "Attention"
+
+    # ── Summary line ──
+    summary_parts = []
+    if succeeded: summary_parts.append(f"✅ {succeeded} succeeded")
+    if failed:    summary_parts.append(f"❌ {failed} failed")
+    if running:   summary_parts.append(f"🔄 {running} running")
+    if errors:    summary_parts.append(f"⚠️ {errors} API errors")
+    other = total - succeeded - failed - running - errors
+    if other:     summary_parts.append(f"❓ {other} other")
+    summary_line = "  |  ".join(summary_parts) or "No data"
+
+    # ── Per-pipeline FactSet rows ──
+    facts = [
+        {
+            "title": r["label"],
+            "value": f"{r['emoji']} {r['status_label']}",
+        }
+        for r in results
+    ]
+
     payload = {
         "type": "message",
-        "attachments": [{
-            "contentType": "application/vnd.microsoft.card.adaptive",
-            "content": {
-                "type": "AdaptiveCard",
-                "version": "1.4",
-                "body": [
-                    {
-                        "type": "TextBlock", 
-                        "text": "📊 Foundry Bulk Build Monitor", 
-                        "weight": "Bolder", 
-                        "size": "Medium"
-                    },
-                    {
-                        "type": "TextBlock", 
-                        "text": "Status report for monitored pipelines:", 
-                        "isSubdued": True
-                    },
-                    {
-                        "type": "FactSet", 
-                        "facts": facts_list
-                    }
-                ]
+        "attachments": [
+            {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    "type":    "AdaptiveCard",
+                    "version": "1.4",
+                    "body": [
+                        # ── Title ──
+                        {
+                            "type":   "TextBlock",
+                            "text":   "📊 Foundry Pipeline Health Check",
+                            "weight": "Bolder",
+                            "size":   "Large",
+                            "color":  header_color,
+                        },
+                        # ── Timestamp ──
+                        {
+                            "type":     "TextBlock",
+                            "text":     f"🕐 Last run: **{run_ts} UTC**  —  {total} pipelines monitored",
+                            "isSubtle": True,
+                            "wrap":     True,
+                        },
+                        # ── Divider ──
+                        {"type": "Separator"},
+                        # ── Summary counts ──
+                        {
+                            "type":   "TextBlock",
+                            "text":   summary_line,
+                            "weight": "Bolder",
+                            "wrap":   True,
+                        },
+                        # ── Divider ──
+                        {"type": "Separator"},
+                        # ── Per-pipeline detail ──
+                        {
+                            "type":  "TextBlock",
+                            "text":  "Pipeline status details:",
+                            "weight": "Bolder",
+                        },
+                        {
+                            "type":  "FactSet",
+                            "facts": facts,
+                        },
+                    ],
+                    # ── Action: open Foundry ──
+                    "actions": [
+                        {
+                            "type":  "Action.OpenUrl",
+                            "title": "🔗 Open Foundry",
+                            "url":   "https://<your-stack>.palantirfoundry.com",
+                        }
+                    ],
+                },
             }
-        }]
+        ],
     }
-    
-    # 5. Push the data out to Teams via HTTP POST (Authorized by Egress Policy)
+
+    return payload
+
+
+def _post_to_teams(payload: dict) -> None:
+    """POST the Adaptive Card payload to the Teams webhook. Raises on failure."""
     try:
-        response = requests.post(teams_webhook_url, json=payload, timeout=10)
-        response.raise_for_be_status()
-    except requests.exceptions.RequestException as req_err:
-        raise RuntimeError(f"Failed to post notification to Microsoft Teams: {req_err}")
-        
-    # 6. Write tracking data back to Foundry to satisfy the Output requirement
-    # This prevents the job from failing due to an empty output dataset
-    summary_df = ctx.spark.createDataFrame([("SUCCESS", len(build_rids))], ["execution_status", "builds_checked"])
+        response = requests.post(
+            TEAMS_WEBHOOK_URL,
+            data=json.dumps(payload),
+            headers={"Content-Type": "application/json"},
+            timeout=REQUEST_TIMEOUT_SECS,
+        )
+        response.raise_for_status()
+        log.info("Teams notification sent — HTTP %s", response.status_code)
+    except requests.exceptions.Timeout:
+        raise RuntimeError("Teams webhook request timed out.")
+    except requests.exceptions.ConnectionError as ce:
+        raise RuntimeError(f"Teams webhook connection error: {ce}")
+    except requests.exceptions.HTTPError as he:
+        raise RuntimeError(
+            f"Teams webhook returned HTTP {he.response.status_code}: {he.response.text}"
+        )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FOUNDRY TRANSFORM ENTRY POINT
+# ══════════════════════════════════════════════════════════════════════════════
+
+@configure(network_policy=NETWORK_POLICY_RID)
+@transform(
+    processed_out=Output(OUTPUT_PATH),
+)
+def health_check_and_notify(ctx, processed_out):
+    """
+    Main Foundry Transform.
+
+    Steps:
+      1. Iterate over all monitored schedules and fetch their status.
+      2. Build a Teams Adaptive Card with the full status report.
+      3. POST to the Teams webhook.
+      4. Write a summary DataFrame back to Foundry (satisfies Output requirement).
+    """
+    run_ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
+    client = ctx.foundry_client
+
+    # ── Step 1: Collect statuses ──
+    results = []
+    for entry in MONITORED_SCHEDULES:
+        log.info("Checking schedule: %s (%s)", entry["label"], entry["rid"])
+        status_info = _fetch_schedule_status(client, entry["rid"])
+        results.append({
+            "rid":          entry["rid"],
+            "label":        entry["label"],
+            **status_info,
+        })
+        log.info("  → %s", status_info["status_label"])
+
+    # ── Step 2: Build Teams payload ──
+    payload = _build_teams_payload(results, run_ts)
+
+    # ── Step 3: Send to Teams ──
+    _post_to_teams(payload)
+
+    # ── Step 4: Write summary dataset to Foundry ──
+    # This dataset acts as the audit trail for every run.
+    rows = [
+        (
+            run_ts,
+            r["rid"],
+            r["label"],
+            r["status_key"],
+            r["status_label"],
+        )
+        for r in results
+    ]
+
+    schema = ["run_timestamp", "schedule_rid", "pipeline_label", "status_key", "status_label"]
+    summary_df = ctx.spark.createDataFrame(rows, schema)
     processed_out.write_dataframe(summary_df)
+
+    log.info(
+        "Health check complete — %d pipelines checked, results written to Foundry.",
+        len(results),
+    )
