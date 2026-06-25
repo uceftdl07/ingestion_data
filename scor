@@ -28,16 +28,23 @@ from transforms.api import configure, Output, transform
 # CONFIGURATION — edit this block only
 # ──────────────────────────────────────────────────────────────────────────────
 
-# Foundry Network Egress Policy (must allow outbound to *.webhook.office.com)
-NETWORK_POLICY_RID = "ri.foundry.main.network-policy.xxxx-xxxx-xxxx"
+# Foundry Network Egress Policy
+# ⚠️  Must allow outbound to: default5a47d63b1b7e4d2d9333750184dcbc.99.environment.api.powerplatform.com
+NETWORK_POLICY_RID = "ri.foundry.main.network-policy.xxxx-xxxx-xxxx"  # ← à remplacer
 
 # Output dataset path (Foundry)
-OUTPUT_PATH = "/YourSpace/Projects/Build_Monitor/summary_log"
+OUTPUT_PATH = "/YourSpace/Projects/Build_Monitor/summary_log"  # ← à ajuster
 
-# Microsoft Teams Incoming Webhook URL
+# Power Automate Webhook URL (déclenche le flow Teams)
 TEAMS_WEBHOOK_URL = (
-    "https://yourcompany.webhook.office.com/webhookb2/your-unique-token-here"
+    "https://default5a47d63b1b7e4d2d9333750184dcbc.99.environment.api.powerplatform.com:443"
+    "/powerautomate/automations/direct/workflows/9578b01ba03642d29daca47d2fa28961"
+    "/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0"
+    "&sig=-AvtKRvhxytzEpKfbQliVemHZvr9jkszc2DGtPE8srs"
 )
+
+# Foundry stack hostname
+FOUNDRY_HOST = "https://scor.palantirfoundry.com"
 
 # ── Schedules to monitor ──────────────────────────────────────────────────────
 # Format: { "label": "human-readable name", "rid": "ri.scheduler.main.schedule.xxx" }
@@ -123,7 +130,7 @@ def _fetch_schedule_status(client: Any, rid: str) -> dict[str, str]:
         try:
             headers = {"Authorization": f"Bearer {client.auth_token}"}
             resp = requests.get(
-                f"https://<your-stack>.palantirfoundry.com/scheduler/api/schedules/{rid}",
+                f"{FOUNDRY_HOST}/scheduler/api/schedules/{rid}",
                 headers=headers,
                 timeout=REQUEST_TIMEOUT_SECS,
             )
@@ -154,9 +161,13 @@ def _build_teams_payload(
     run_ts: str,
 ) -> dict:
     """
-    Build a rich Microsoft Teams Adaptive Card payload.
+    Build the payload envoyé au trigger HTTP Power Automate.
 
-    Layout:
+    Power Automate reçoit ce JSON, puis poste l'Adaptive Card dans Teams.
+    Le flow PA doit avoir un trigger HTTP "manual" et une action
+    "Post adaptive card in a chat or channel".
+
+    Layout de la carte Teams résultante :
       ┌─────────────────────────────────────────────────────┐
       │  📊 Foundry Pipeline Health Check                   │
       │  Last run: 2025-06-25 14:32 UTC                     │
@@ -201,64 +212,74 @@ def _build_teams_payload(
         for r in results
     ]
 
-    payload = {
-        "type": "message",
-        "attachments": [
+    # ── Adaptive Card (postée dans Teams par Power Automate) ────────────────
+    adaptive_card = {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type":    "AdaptiveCard",
+        "version": "1.4",
+        "body": [
+            # ── Title ──
             {
-                "contentType": "application/vnd.microsoft.card.adaptive",
-                "content": {
-                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                    "type":    "AdaptiveCard",
-                    "version": "1.4",
-                    "body": [
-                        # ── Title ──
-                        {
-                            "type":   "TextBlock",
-                            "text":   "📊 Foundry Pipeline Health Check",
-                            "weight": "Bolder",
-                            "size":   "Large",
-                            "color":  header_color,
-                        },
-                        # ── Timestamp ──
-                        {
-                            "type":     "TextBlock",
-                            "text":     f"🕐 Last run: **{run_ts} UTC**  —  {total} pipelines monitored",
-                            "isSubtle": True,
-                            "wrap":     True,
-                        },
-                        # ── Divider ──
-                        {"type": "Separator"},
-                        # ── Summary counts ──
-                        {
-                            "type":   "TextBlock",
-                            "text":   summary_line,
-                            "weight": "Bolder",
-                            "wrap":   True,
-                        },
-                        # ── Divider ──
-                        {"type": "Separator"},
-                        # ── Per-pipeline detail ──
-                        {
-                            "type":  "TextBlock",
-                            "text":  "Pipeline status details:",
-                            "weight": "Bolder",
-                        },
-                        {
-                            "type":  "FactSet",
-                            "facts": facts,
-                        },
-                    ],
-                    # ── Action: open Foundry ──
-                    "actions": [
-                        {
-                            "type":  "Action.OpenUrl",
-                            "title": "🔗 Open Foundry",
-                            "url":   "https://<your-stack>.palantirfoundry.com",
-                        }
-                    ],
-                },
+                "type":   "TextBlock",
+                "text":   "📊 Foundry Pipeline Health Check",
+                "weight": "Bolder",
+                "size":   "Large",
+                "color":  header_color,
+            },
+            # ── Timestamp ──
+            {
+                "type":     "TextBlock",
+                "text":     f"🕐 Last run: **{run_ts} UTC**  —  {total} pipelines monitored",
+                "isSubtle": True,
+                "wrap":     True,
+            },
+            # ── Divider ──
+            {"type": "Separator"},
+            # ── Summary counts ──
+            {
+                "type":   "TextBlock",
+                "text":   summary_line,
+                "weight": "Bolder",
+                "wrap":   True,
+            },
+            # ── Divider ──
+            {"type": "Separator"},
+            # ── Per-pipeline detail ──
+            {
+                "type":   "TextBlock",
+                "text":   "Pipeline status details:",
+                "weight": "Bolder",
+            },
+            {
+                "type":  "FactSet",
+                "facts": facts,
+            },
+        ],
+        # ── Bouton Foundry ──
+        "actions": [
+            {
+                "type":  "Action.OpenUrl",
+                "title": "🔗 Open Foundry",
+                "url":   FOUNDRY_HOST,
             }
         ],
+    }
+
+    # ── Payload HTTP envoyé au trigger Power Automate ────────────────────────
+    # Power Automate parse ce JSON via triggerBody() dans le flow.
+    # Champs disponibles dans le flow :
+    #   triggerBody()?['status']        → "ok" ou "alert"
+    #   triggerBody()?['summary']       → ligne de résumé lisible
+    #   triggerBody()?['run_timestamp'] → horodatage du run
+    #   triggerBody()?['total_checked'] → nb de pipelines vérifiés
+    #   triggerBody()?['adaptive_card'] → carte JSON à poster dans Teams
+    payload = {
+        "status":        "alert" if (failed + errors) > 0 else "ok",
+        "summary":       summary_line,
+        "run_timestamp": run_ts,
+        "total_checked": total,
+        "failed_count":  failed + errors,
+        "adaptive_card": adaptive_card,  # objet JSON direct (pas sérialisé en string)
     }
 
     return payload
