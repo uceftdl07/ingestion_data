@@ -1,0 +1,13 @@
+TypeError: configure() got an unexpected keyword argument 'egress_policy'
+(function) def configure(
+    profile: str | List[str] | None = None,
+    allowed_run_duration: timedelta | None = None,
+    run_as_user: bool = False,
+    backend: str | ComputeBackend = ComputeBackend.SPARK,
+    checkpoint_outputs: List[str] | None = None
+) -> ((AnyTransform@configure) -> AnyTransform@configure)
+A decorator that modifies the configuration of a Spark transform.
+
+The configure decorator must be used to wrap a Transform:
+
+>>> @configure(profile=['high-memory'])
