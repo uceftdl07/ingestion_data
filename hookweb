@@ -1,3 +1,7 @@
+AttributeError: module 'myproject.pipeline' has no attribute 'my_pipeline'
+(module) functools
+functools.py - Tools for working with functions and callable objects
+
 Maintenant un point important — ton webhook est Power Automate, pas un Incoming Webhook Teams direct. Le payload doit changer légèrement :Ran 3 commands, edited a file, viewed a fileRan 3 commands, edited a file, viewed a fileMis à jour. Voilà ce qui a changé :
 
 Ce qui a été patché
