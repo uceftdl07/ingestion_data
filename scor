@@ -8,23 +8,29 @@ from transforms.api import transform, Output, configure
 )
 def bulk_check_builds(ctx, processed_out):
     # 2. Paste your 15 specific Build RIDs here
-    build_rids = [
-        "ri.foundry.main.build.11111111-1111-1111-1111-111111111111",
-        "ri.foundry.main.build.22222222-2222-2222-2222-222222222222",
-        "ri.foundry.main.build.33333333-3333-3333-3333-333333333333",
-        "ri.foundry.main.build.44444444-4444-4444-4444-444444444444",
-        "ri.foundry.main.build.55555555-5555-5555-5555-555555555555",
-        "ri.foundry.main.build.66666666-6666-6666-6666-666666666666",
-        "ri.foundry.main.build.77777777-7777-7777-7777-777777777777",
-        "ri.foundry.main.build.88888888-8888-8888-8888-888888888888",
-        "ri.foundry.main.build.99999999-9999-9999-9999-999999999999",
-        "ri.foundry.main.build.aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-        "ri.foundry.main.build.bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-        "ri.foundry.main.build.cccccccc-cccc-cccc-cccc-cccccccccccc",
-        "ri.foundry.main.build.dddddddd-dddd-dddd-dddd-dddddddddddd",
-        "ri.foundry.main.build.eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
-        "ri.foundry.main.build.ffffffff-ffff-ffff-ffff-ffffffffffff"
-    ]
+    JOB_RIDS = [
+    "ri.scheduler.main.schedule.fa679d95-9758-4cce-9413-750b9230bfe9",
+    "ri.scheduler.main.schedule.00ea559b-7360-42a4-8732-3158366d142d",
+    "ri.scheduler.main.schedule.c1fd8c09-ee7b-42aa-a78d-916e0877c503",
+    "ri.scheduler.main.schedule.97f67366-9d9e-4557-945b-c363273531f6",
+    "ri.scheduler.main.schedule.aabef8fb-3a09-4235-a1c3-4550021b8888",
+    "ri.scheduler.main.schedule.77e33e18-1f6e-4424-8635-f313b3b6bd14",
+    "ri.scheduler.main.schedule.0bac4111-6b61-4f47-b4ff-5128b6b72345",
+    "ri.scheduler.main.schedule.f741e2b4-631d-4cb1-9756-5973c17638b0",
+    "ri.scheduler.main.schedule.db4ebe98-b91a-4bc4-b175-31762d1048e3",
+    "ri.scheduler.main.schedule.1c421b6b-b86b-4f00-862b-897a96e60200",
+    "ri.scheduler.main.schedule.894a9df1-882e-4beb-8974-b1a608152e89",
+    "ri.scheduler.main.schedule.33329528-237f-49a3-a933-a9cbffca1580",
+    "ri.scheduler.main.schedule.121bae62-974c-4c8b-823b-71fa7abe9e47",
+    "ri.scheduler.main.schedule.c9ecf604-0e0f-49f6-9ae0-c2dfc1bee170",
+    "ri.scheduler.main.schedule.c9e67834-f1f0-4062-a67f-be27b54157ef",
+    "ri.scheduler.main.schedule.c4fd6acb-0edd-485f-b3b9-cdb635c1c30f",
+    "ri.scheduler.main.schedule.29e45b67-4c9a-4e6d-8c5c-218a40b47104",
+    "ri.scheduler.main.schedule.e2d901f5-e204-4bbb-9b59-3891b66027e5",
+    "ri.scheduler.main.schedule.11bc58a0-1edf-4dac-af00-67e39adcd08d",
+    "ri.scheduler.main.schedule.2ffa689e-02ed-44b9-a139-2c78591ab650",
+    "ri.scheduler.main.schedule.a171ec92-6670-4f76-80d4-c072d1e26fc5"
+]
     
     # Target Microsoft Teams Incoming Webhook URL
     teams_webhook_url = "https://yourcompany.webhook.office.com/webhookb2/your-unique-token-here"
