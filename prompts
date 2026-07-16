@@ -1,0 +1,53 @@
+Create a modern project roadmap with a horizontal timeline, using color-coded status indicators (Completed, In Progress, Validation, Planned, Investigation). Display each workstream as a separate lane with milestones, dates, and short descriptions.
+Workstream 1 – MongoDB Full Integration
+Title: Full Integration of MongoDB Documents
+Integrate all MongoDB documents from the claimMaster and policyMaster collections.
+Development period: April 17 – May 5
+Environment delivery: TST on May 5
+Current Status: In Progress (recent enhancement/evolution)
+Workstream 2 – Silver Layer Remodelling
+Title: Silver Layer Architecture Redesign
+Previous Architecture
+Silver layer consumed the Alpha SQL model inside Databricks.
+New Architecture
+Migrate all new operational data from SQL to MongoDB.
+Keep only historical data in SQL.
+MongoDB becomes the primary source for current data.
+Milestone: May 7
+Current Status: In Validation
+Workstream 3 – Data Quality Investigation
+Title: Data Quality Assessment
+Investigate missing data observed during the migration to MongoDB as the primary data source.
+Identify root causes and validate data completeness.
+Priority: Low
+Blocking: No (Non-blocking activity)
+Current Status: Investigation
+Workstream 4 – Principal Data Mart Development
+Title: Mongo-Based Data Mart
+Design and develop the primary data mart for validating and analyzing data coming from MongoDB.
+Start Date: July 10
+Target Completion: July 25
+Current Status: In Progress
+Workstream 5 – Incremental Load Strategy
+Title: Incremental Data Ingestion
+Evaluate the date keys provided by the Alpha model in both MongoDB and SQL.
+Use these keys as watermarks for daily incremental ingestion.
+Prevent full overwrite of Bronze tables by loading only new or updated records.
+Current Status: Tested
+Planned Development: August
+Priority: Low
+Diagram Style
+Use a clean Azure/Databricks-inspired professional theme.
+Horizontal timeline from April to August.
+Use icons:
+🟢 Completed
+🔵 In Progress
+🟡 Validation
+🟠 Investigation
+⚪ Planned
+Show dependencies where appropriate:
+MongoDB Integration → Silver Layer Redesign → Data Mart Development.
+Data Quality Investigation supports both the Silver Layer and Data Mart.
+Incremental Load depends on successful validation of MongoDB date keys.
+Include a legend for status colors.
+Make the diagram suitable for an executive project review presentation.
